@@ -1,0 +1,109 @@
+[
+  {
+    "image": "animals1.jpg",
+    "questions": [
+      {
+        "id": 1,
+        "type": "text",
+        "label": "Только",
+        "answer": "Лев",
+        "x": 170,
+        "y": 170,
+        "width": 60
+      },
+      {
+        "id": 2,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "а)",
+        "x": 190,
+        "y": 280,
+        "width": 40
+      },
+      {
+        "id": 3,
+        "type": "choice",
+        "label": "Название",
+        "options": ["а)", "б)", "в)"],
+        "answer": "а)",
+        "x": 450,
+        "y": 410,
+        "width": 40
+      },
+      {
+        "id": 4,
+        "type": "text",
+        "label": "Густые",
+        "answer": "грива",
+        "x": 250,
+        "y": 585,
+        "width": 60
+      },
+      {
+        "id": 5,
+        "type": "choice",
+        "label": "Как?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "в)",
+        "x": 175,
+        "y": 730,
+        "width": 40
+      }
+    ]
+  },
+  {
+    "image": "animals2.jpg",
+    "questions": [
+      {
+        "id": 6,
+        "type": "choice",
+        "label": "Кто",
+        "options": ["леопард, ягуар", "ягуар, леопард"],
+        "answer": "леопард, ягуар",
+        "x": 70,
+        "y": 220,
+        "width": 140
+      },
+      {
+        "id": 7,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["да", "нет"],
+        "answer": "да",
+        "x": 300,
+        "y": 518,
+        "width": 40
+      },
+      {
+        "id": 8,
+        "type": "choice",
+        "label": "Название",
+        "options": ["Лев", "Тигр"],
+        "answer": "Тигр",
+        "x": 482,
+        "y": 640,
+        "width": 60
+      },
+      {
+        "id": 9,
+        "type": "choice",
+        "label": "Густые",
+        "options": ["а)", "б)", "в)"],
+        "answer": "в)",
+        "x": 440,
+        "y": 725,
+        "width": 40
+      },
+      {
+        "id": 10,
+        "type": "text",
+        "label": "Как?",
+        "answer": "Лев",
+        "x": 300,
+        "y": 900,
+        "width": 340
+      }
+    ]
+  }
+]
