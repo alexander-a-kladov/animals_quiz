@@ -150,20 +150,11 @@ html, body {
 }
 
 /* ── Answer widgets (overlaid on image) ── */
+/* top-left corner of widget sits exactly at (x,y) from config */
 .answer-widget {
   position: absolute;
-  transform: translateY(-50%);
   z-index: 50;
   display: flex; flex-direction: column; gap: 5px;
-}
-
-.w-badge {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 22px; height: 22px; border-radius: 50%;
-  background: var(--accent); color: #fff;
-  font-family: 'Unbounded', sans-serif;
-  font-size: 0.65rem; font-weight: 700;
-  flex-shrink: 0; margin-bottom: 3px;
 }
 
 .w-choices { display: flex; flex-direction: column; gap: 5px; }
@@ -174,7 +165,7 @@ html, body {
   border-radius: 9px; padding: 7px 13px;
   color: var(--text);
   font-family: 'Nunito', sans-serif;
-  font-size: 0.82rem; font-weight: 700;
+  font-size: 1.23rem; font-weight: 900;
   cursor: pointer; transition: all 0.18s;
   white-space: nowrap; text-align: left;
 }
@@ -191,7 +182,7 @@ html, body {
   border-radius: 9px; padding: 8px 13px;
   color: var(--text);
   font-family: 'Nunito', sans-serif;
-  font-size: 0.82rem; font-weight: 700;
+  font-size: 1.23rem; font-weight: 900;
   outline: none; transition: border-color 0.18s; width: 100%;
 }
 .w-text-input:focus  { border-color: var(--accent); }
@@ -199,8 +190,8 @@ html, body {
 .w-text-input.wrong   { border-color: var(--wrong);   color: var(--wrong); }
 .w-text-input:disabled { opacity: 0.85; cursor: default; }
 
-.w-hint { font-size: 0.68rem; color: rgba(144,144,176,0.85); }
-.w-hint.reveal { color: var(--correct); font-weight: 700; font-size: 0.73rem; }
+.w-hint { font-size: 0.75rem; font-weight: 700; color: rgba(144,144,176,0.85); }
+.w-hint.reveal { color: var(--correct); font-weight: 900; font-size: 0.8rem; }
 
 /* ── Nav row ── */
 .nav-row {
@@ -486,9 +477,6 @@ function renderPage() {
   document.getElementById('prog-fill').style.width = `${(S.cur/total)*100}%`;
   document.getElementById('page-counter').textContent = `${S.cur+1} / ${total}`;
 
-  S.answered = new Array(page.questions.length).fill(false);
-  S.correct  = new Array(page.questions.length).fill(false);
-
   const stage  = document.getElementById('image-stage');
   const imgEl  = document.getElementById('quiz-img');
 
@@ -497,28 +485,29 @@ function renderPage() {
 
   imgEl.src = page.resolvedSrc;
 
-  // Place widgets once image dimensions are known
+  // Place widgets once image dimensions are known.
+  // answered/correct are (re)initialised here so length is always correct
+  // regardless of whether the image was already cached.
   function placeWidgets() {
-    const natW  = imgEl.naturalWidth  || 1200;
-    const natH  = imgEl.naturalHeight || 900;
-    const dispW = imgEl.offsetWidth;
+    S.answered = new Array(page.questions.length).fill(false);
+    S.correct  = new Array(page.questions.length).fill(false);
+
+    const natW   = imgEl.naturalWidth  || 1200;
+    const natH   = imgEl.naturalHeight || 900;
+    const dispW  = imgEl.offsetWidth;
+    const dispH  = imgEl.offsetHeight || (dispW * natH / natW);
     const scaleX = dispW / natW;
-    const scaleY = (imgEl.offsetHeight || (dispW * natH / natW)) / natH;
+    const scaleY = dispH / natH;
 
     page.questions.forEach((q, qi) => {
       const widget = document.createElement('div');
       widget.className = 'answer-widget';
       widget.id = `widget-${qi}`;
 
+      // top-left corner of widget = (x,y) from config (no Y-centering)
       widget.style.left  = (q.x * scaleX) + 'px';
       widget.style.top   = (q.y * scaleY) + 'px';
       widget.style.width = ((q.width || 280) * scaleX) + 'px';
-
-      // Number badge
-      const badge = document.createElement('div');
-      badge.className = 'w-badge';
-      badge.textContent = q.id ?? (qi + 1);
-      widget.appendChild(badge);
 
       if (q.type === 'choice') {
         const grid = document.createElement('div');
@@ -536,12 +525,12 @@ function renderPage() {
         const inp = document.createElement('input');
         inp.className = 'w-text-input';
         inp.type = 'text';
-        inp.placeholder = 'Введите ответ…';
+        inp.placeholder = '…';
         inp.id = `tinp-${qi}`;
 
         const hint = document.createElement('div');
         hint.className = 'w-hint';
-        hint.textContent = 'Enter для подтверждения';
+        hint.textContent = 'Enter';
 
         inp.addEventListener('keydown', e => {
           if (e.key === 'Enter') onText(qi, inp, q.answer, hint);
@@ -556,6 +545,9 @@ function renderPage() {
 
       stage.appendChild(widget);
     });
+
+    updateNav();
+    updateScore();
   }
 
   if (imgEl.complete && imgEl.naturalWidth) {
@@ -571,9 +563,6 @@ function renderPage() {
     placeWidgets();
   };
   window.addEventListener('resize', window._resizeHandler);
-
-  updateNav();
-  updateScore();
 }
 
 // ══════════════════════════════════════════════
