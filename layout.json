@@ -1,4 +1,5 @@
 [
+  
   {
     "image": "animals1.jpg",
     "questions": [
@@ -16,7 +17,7 @@
         "type": "choice",
         "label": "Какая?",
         "options": ["а)", "б)", "в)"],
-        "answer": "а)",
+        "answer": "в)",
         "x": 190,
         "y": 280,
         "width": 40
@@ -33,8 +34,9 @@
       },
       {
         "id": 4,
-        "type": "text",
-        "label": "Густые",
+        "type": "choice",
+        "label": "Название",
+        "options": ["грива", "хохолок"],
         "answer": "грива",
         "x": 250,
         "y": 585,
@@ -45,7 +47,7 @@
         "type": "choice",
         "label": "Как?",
         "options": ["а)", "б)", "в)"],
-        "answer": "в)",
+        "answer": "б)",
         "x": 175,
         "y": 730,
         "width": 40
@@ -63,7 +65,7 @@
         "answer": "леопард, ягуар",
         "x": 70,
         "y": 220,
-        "width": 140
+        "width": 100
       },
       {
         "id": 7,
@@ -83,7 +85,7 @@
         "answer": "Тигр",
         "x": 482,
         "y": 640,
-        "width": 60
+        "width": 50
       },
       {
         "id": 9,
@@ -102,7 +104,440 @@
         "answer": "Лев",
         "x": 300,
         "y": 900,
-        "width": 340
+        "width": 50
+      }
+    ]
+  },
+  {
+    "image": "animals3.jpg",
+    "questions": [
+      {
+        "id": 11,
+        "type": "choice",
+        "label": "Только",
+        "options": ["а)", "б)", "в)"],
+        "answer": "а)",
+        "x": 55,
+        "y": 170,
+        "width": 40
+      },
+      {
+        "id": 12,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "в)",
+        "x": 452,
+        "y": 320,
+        "width": 40
+      },
+      {
+        "id": 13,
+        "type": "choice",
+        "label": "Название",
+        "options": ["а)", "б)", "в)"],
+        "answer": "в)",
+        "x": 40,
+        "y": 415,
+        "width": 30
+      },
+      {
+        "id": 14,
+        "type": "text",
+        "label": "Густые",
+        "answer": "гиена",
+        "x": 90,
+        "y": 540,
+        "width": 100
+      },
+      {
+        "id": 15,
+        "type": "choice",
+        "label": "Как?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "б)",
+        "x": 335,
+        "y": 635,
+        "width": 40
+      }
+    ]
+  },
+  {
+    "image": "animals4.jpg",
+    "questions": [
+      
+      {
+        "id": 16,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "а)",
+        "x": 560,
+        "y": 65,
+        "width": 40
+      },
+      {
+        "id": 17,
+        "type": "text",
+        "label": "Густые",
+        "answer": "комары",
+        "x": 200,
+        "y": 245,
+        "width": 60
+      },
+      {
+        "id": 18,
+        "type": "text",
+        "label": "Только",
+        "answer": "тигр",
+        "x": 190,
+        "y": 360,
+        "width": 60
+      },
+      {
+        "id": 19,
+        "type": "choice",
+        "label": "Название",
+        "options": ["а)", "б)", "в)"],
+        "answer": "б)",
+        "x": 400,
+        "y": 430,
+        "width": 40
+      },
+      {
+        "id": 20,
+        "type": "choice",
+        "label": "Как?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "а)",
+        "x": 45,
+        "y": 560,
+        "width": 40
+      }
+    ]
+  },
+  {
+    "image": "animals5.jpg",
+    "questions": [
+      {
+        "id": 21,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "в)",
+        "x": 200,
+        "y": 190,
+        "width": 40
+      },
+      {
+        "id": 22,
+        "type": "choice",
+        "label": "Название",
+        "options": ["а)", "б)", "в)"],
+        "answer": "а)",
+        "x": 35,
+        "y": 370,
+        "width": 40
+      },
+      {
+        "id": 23,
+        "type": "choice",
+        "label": "Название",
+        "options": ["акула", "косатка"],
+        "answer": "косатка",
+        "x": 305,
+        "y": 525,
+        "width": 100
+      },
+      {
+        "id": 24,
+        "type": "choice",
+        "label": "Густые",
+ 	"options": ["а)", "б)", "в)"],
+        "answer": "б)",
+        "x": 35,
+        "y": 635,
+        "width": 40
+      },
+      {
+        "id": 25,
+        "type": "text",
+        "label": "Как?",
+        "answer": "акула-молот",
+        "x": 195,
+        "y": 760,
+        "width": 120
+      }
+    ]
+  },
+  {
+    "image": "animals6.jpg",
+    "questions": [
+      {
+        "id": 26,
+        "type": "choice",
+        "options": ["а)", "б)", "в)"],
+        "answer": "в)",
+        "x": 30,
+        "y": 100,
+        "width": 40
+      },
+      {
+        "id": 27,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "б)",
+        "x": 240,
+        "y": 270,
+        "width": 40
+      },
+      {
+        "id": 28,
+        "type": "choice",
+        "label": "Название",
+        "options": ["а)", "б)", "в)"],
+        "answer": "а)",
+        "x": 520,
+        "y": 570,
+        "width": 40
+      },
+      {
+        "id": 29,
+        "type": "choice",
+        "label": "Название",
+        "options": ["а)", "б)", "в)"],
+        "answer": "б)",
+        "x": 260,
+        "y": 665,
+        "width": 40
+      },
+      {
+        "id": 30,
+        "type": "choice",
+        "label": "Как?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "в)",
+        "x": 450,
+        "y": 770,
+        "width": 40
+      }
+    ]
+  },
+  {
+    "image": "animals7.jpg",
+    "questions": [
+      {
+        "id": 31,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "а)",
+        "x": 35,
+        "y": 150,
+        "width": 40
+      },
+      {
+        "id": 32,
+        "type": "text",
+        "label": "Только",
+        "answer": "скунс",
+        "x": 88,
+        "y": 398,
+        "width": 100
+      },
+      {
+        "id": 33,
+        "type": "choice",
+        "label": "Название",
+        "options": ["а)", "б)", "в)"],
+        "answer": "б)",
+        "x": 300,
+        "y": 455,
+        "width": 40
+      },
+      {
+        "id": 34,
+        "type": "choice",
+        "label": "Название",
+        "options": ["а)", "б)", "в)"],
+        "answer": "б)",
+        "x": 20,
+        "y": 595,
+        "width": 40
+      },
+      {
+        "id": 35,
+        "type": "choice",
+        "label": "Как?",
+        "options": ["да", "нет"],
+        "answer": "да",
+        "x": 220,
+        "y": 725,
+        "width": 40
+      }
+    ]
+  },
+  {
+    "image": "animals8.jpg",
+    "questions": [
+      {
+        "id": 36,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["да", "нет"],
+        "answer": "да",
+        "x": 180,
+        "y": 100,
+        "width": 40
+      },
+      {
+        "id": 37,
+        "type": "text",
+        "label": "Густые",
+        "answer": "олени",
+        "x": 320,
+        "y": 180,
+        "width": 120
+      },
+      {
+        "id": 38,
+        "type": "choice",
+        "label": "Название",
+        "options": ["а)", "б)", "в)"],
+        "answer": "б)",
+        "x": 265,
+        "y": 280,
+        "width": 40
+      },
+      {
+        "id": 39,
+        "type": "text",
+        "label": "Густые",
+        "answer": "волкособ",
+        "x": 235,
+        "y": 440,
+        "width": 100
+      },
+      {
+        "id": 40,
+        "type": "choice",
+        "label": "Как?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "а)",
+        "x": 285,
+        "y": 500,
+        "width": 40
+      }
+    ]
+  },
+  {
+    "image": "animals9.jpg",
+    "questions": [
+      {
+        "id": 41,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["да", "нет"],
+        "answer": "да",
+        "x": 320,
+        "y": 80,
+        "width": 40
+      },
+      {
+        "id": 42,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "б)",
+        "x": 385,
+        "y": 200,
+        "width": 40
+      },
+      {
+        "id": 43,
+        "type": "choice",
+        "label": "Название",
+        "options": ["а)", "б)", "в)"],
+        "answer": "в)",
+        "x": 260,
+        "y": 335,
+        "width": 40
+      },
+      {
+        "id": 44,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["да", "нет"],
+        "answer": "нет",
+        "x": 470,
+        "y": 455,
+        "width": 60
+      },
+      {
+        "id": 45,
+        "type": "choice",
+        "label": "Как?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "а)",
+        "x": 300,
+        "y": 545,
+        "width": 40
+      }
+    ]
+  },
+  {
+    "image": "animals10.jpg",
+    "questions": [
+      {
+        "id": 46,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "в)",
+        "x": 545,
+        "y": 120,
+        "width": 60
+      },
+      {
+        "id": 47,
+        "type": "choice",
+        "label": "Какая?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "б)",
+        "x": 430,
+        "y": 245,
+        "width": 40
+      },
+      {
+        "id": 48,
+        "type": "choice",
+        "label": "Название",
+        "options": ["а)", "б)", "в)"],
+        "answer": "б)",
+        "x": 500,
+        "y": 380,
+        "width": 40
+      },
+      {
+        "id": 49,
+        "type": "choice",
+        "label": "Название",
+        "options": ["предупреждение", "ухаживание"],
+        "answer": "предупреждение",
+        "x": 505,
+        "y": 495,
+        "width": 100
+      },
+      {
+        "id": 50,
+        "type": "choice",
+        "label": "Как?",
+        "options": ["а)", "б)", "в)"],
+        "answer": "б)",
+        "x": 205,
+        "y": 600,
+        "width": 40
       }
     ]
   }
