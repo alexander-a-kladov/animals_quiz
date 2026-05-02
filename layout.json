@@ -1,7 +1,9 @@
 {
  "title": "Викторина о животных",
  "showAnswers": true,
+ "startPage":11,
  "pages": [
+
   {
     "image": "animals1.jpg",
     "questions": [
@@ -283,7 +285,7 @@
       }
     ]
   },
-  {
+   {
     "image": "animals6.jpg",
     "questions": [
       {
@@ -304,7 +306,8 @@
         "answer": "б)",
         "x": 240,
         "y": 270,
-        "width": 40
+        "width": 40,
+        "direction": "horizontal"
       },
       {
         "id": 28,
@@ -312,8 +315,8 @@
         "label": "Название",
         "options": ["а)", "б)", "в)"],
         "answer": "а)",
-        "x": 520,
-        "y": 570,
+        "x": 510,
+        "y": 560,
         "width": 40
       },
       {
@@ -324,7 +327,7 @@
         "answer": "б)",
         "comment": "это китовая акула",
         "x": 260,
-        "y": 665,
+        "y": 660,
         "width": 40
       },
       {
@@ -333,9 +336,10 @@
         "label": "Как?",
         "options": ["а)", "б)", "в)"],
         "answer": "в)",
-        "x": 450,
-        "y": 770,
-        "width": 40
+        "x": 185,
+        "y": 760,
+        "width": 40,
+        "direction": "horizontal"
       }
     ]
   },

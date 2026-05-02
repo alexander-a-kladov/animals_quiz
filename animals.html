@@ -223,6 +223,26 @@ html, body { height: 100%; background: var(--dark); color: var(--text); font-fam
 
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-thumb { background: #ffffff20; border-radius: 3px; }
+
+/* ── debug startPage control in header ── */
+.start-page-ctrl {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(124,92,252,0.18);
+  border: 1px solid rgba(124,92,252,0.4);
+  border-radius: 8px; padding: 4px 10px;
+  font-family: 'Unbounded', sans-serif; font-size: 0.72rem;
+}
+.start-page-ctrl .sp-label { color: var(--text-muted); white-space: nowrap; }
+.start-page-ctrl .sp-btn {
+  background: none; border: none; color: var(--accent);
+  font-size: 1rem; cursor: pointer; padding: 0 2px;
+  line-height: 1; transition: color 0.15s;
+}
+.start-page-ctrl .sp-btn:hover { color: var(--accent2); }
+.start-page-ctrl .sp-btn:disabled { color: #ffffff22; cursor: default; }
+.start-page-ctrl .sp-num {
+  color: var(--gold); font-weight: 700; min-width: 2ch; text-align: center;
+}
 </style>
 </head>
 <body>
@@ -250,6 +270,12 @@ html, body { height: 100%; background: var(--dark); color: var(--text); font-fam
       <div class="prog-wrap"><div class="prog-fill" id="prog-fill"></div></div>
     </div>
     <div class="hdr-right">
+      <div class="start-page-ctrl" id="sp-ctrl" title="Начальная страница (для отладки)">
+        <span class="sp-label">▶ со стр.</span>
+        <button class="sp-btn" id="sp-prev" onclick="spStep(-1)">◀</button>
+        <span class="sp-num" id="sp-num">1</span>
+        <button class="sp-btn" id="sp-next" onclick="spStep(1)">▶</button>
+      </div>
       <div class="page-counter" id="page-counter">1 / 1</div>
       <div class="timer" id="timer">00:00</div>
     </div>
@@ -337,6 +363,7 @@ const LAYOUT_FILE = 'layout.json';
 const S = {
   title: 'ВИКТОРИНА',
   showAnswers: true,   // show correct answer + comment on wrong
+  startPage: 0,        // 0-based index of first page (for debugging)
   pages: [],
   cur: 0,
   score: 0,
@@ -378,6 +405,7 @@ async function boot() {
       document.title = layout.title;
     }
     if (layout.showAnswers === false) S.showAnswers = false;
+    if (typeof layout.startPage === 'number') S.startPage = layout.startPage;
   } else {
     return showError(`<code>${LAYOUT_FILE}</code>: неверный формат.`);
   }
@@ -408,8 +436,10 @@ async function boot() {
   document.getElementById('loading-screen').style.display = 'none';
   document.getElementById('quiz-screen').style.display = 'flex';
   document.getElementById('quiz-title').textContent = S.title;
+  S.cur = Math.max(0, Math.min(S.startPage, S.pages.length - 1));
   startTimer();
   renderPage();
+  updateSpCtrl();
 }
 
 function preloadImg(src) {
@@ -489,6 +519,7 @@ function renderPage() {
   }
 
   imgEl.complete && imgEl.naturalWidth ? placeWidgets() : (imgEl.onload = placeWidgets);
+  updateSpCtrl();
 
   if (window._rzH) window.removeEventListener('resize', window._rzH);
   window._rzH = () => { stage.querySelectorAll('.answer-widget').forEach(e=>e.remove()); placeWidgets(); };
@@ -700,6 +731,29 @@ function confetti(n) {
     }, i*30);
   }
 }
+
+// ─────────────────────────────────────────────
+//  DEBUG: startPage control in header
+// ─────────────────────────────────────────────
+function spStep(delta) {
+  const next = S.cur + delta;
+  if (next < 0 || next >= S.pages.length) return;
+  S.cur = next;
+  S.score = 0;          // reset score when jumping
+  S.timerSec = 0;
+  document.getElementById('timer').textContent = fmt(0);
+  updateSpCtrl();
+  renderPage();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateSpCtrl() {
+  const n = S.pages.length;
+  document.getElementById('sp-num').textContent = S.cur + 1;
+  document.getElementById('sp-prev').disabled = S.cur === 0;
+  document.getElementById('sp-next').disabled = S.cur === n - 1;
+}
+
 
 boot();
 </script>
