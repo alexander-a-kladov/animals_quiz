@@ -1,7 +1,7 @@
 {
  "title": "Викторина о животных",
  "showAnswers": true,
- "startPage":11,
+ "startPage":0,
  "pages": [
 
   {
@@ -680,7 +680,10 @@
         "y": 625,
         "width": 40
       }
-    ]
+    ],
+    "labels": [
+    { "text": "Капуцины", "x": 268,  "y": 385,  "width": 100 }
+  	]
   }
 ]
 }
