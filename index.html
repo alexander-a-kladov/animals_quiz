@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-visual">
 <title>Викторина</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Nunito:wght@400;600;700&display=swap');
@@ -502,34 +502,43 @@ function renderPage() {
   stage.querySelectorAll('.answer-widget, .page-label').forEach(el => el.remove());
   imgEl.src = page.resolvedSrc;
 
-  function placeWidgets() {
-    S.answered = new Array(page.questions.length).fill(false);
-    S.correct  = new Array(page.questions.length).fill(false);
-
+  function calcScale() {
     const natW = imgEl.naturalWidth  || 1200;
     const natH = imgEl.naturalHeight || 900;
     const dW   = imgEl.offsetWidth;
     const dH   = imgEl.offsetHeight || (dW * natH / natW);
-    const sx   = dW / natW;
-    const sy   = dH / natH;
-
-    // Font is always a fixed fraction of displayed image width → perfect proportional scaling.
-    // Default ratio 0.0164 = 19.68px / 1200px (original 1.23rem at natW=1200 display).
-    // Override per-page with "fontScale" in layout.json (e.g. 0.02 for bigger text).
     const fontScale = (S.pages[S.cur] && S.pages[S.cur].fontScale) ? S.pages[S.cur].fontScale : 0.0164;
-    const baseFontPx = Math.max(8, fontScale * dW);
+    return {
+      sx: dW / natW,
+      sy: dH / natH,
+      baseFontPx: Math.max(8, fontScale * dW)
+    };
+  }
+
+  // placeWidgets — called ONCE per page: builds DOM widgets and inits state
+  function placeWidgets() {
+    S.answered = new Array(page.questions.length).fill(false);
+    S.correct  = new Array(page.questions.length).fill(false);
+
+    const { sx, sy, baseFontPx } = calcScale();
 
     page.questions.forEach((q, qi) => {
       const widget = document.createElement('div');
       widget.className = 'answer-widget';
-      // top-left corner at (x, y) from config
+      widget.dataset.qi  = qi;
+      widget.dataset.qx  = q.x;
+      widget.dataset.qy  = q.y;
+      widget.dataset.qw  = q.width || 280;
+      widget.dataset.dir = (q.type === 'choice' && q.direction === 'horizontal') ? 'h' : 'v';
       widget.style.left     = (q.x * sx) + 'px';
       widget.style.top      = (q.y * sy) + 'px';
-      widget.style.fontSize = baseFontPx + 'px';  // all em units inside scale with this
-      if (q.type === 'choice' && q.direction === 'horizontal') {
-        widget.style.width = 'max-content';
+      widget.style.fontSize = baseFontPx + 'px';
+      if (widget.dataset.dir === 'h') {
+        widget.style.width    = 'max-content';
+        widget.style.maxWidth = ((imgEl.naturalWidth - q.x) * sx) + 'px';
       } else {
-        widget.style.width = ((q.width || 280) * sx) + 'px';
+        widget.style.width    = ((q.width || 280) * sx) + 'px';
+        widget.style.maxWidth = '';
       }
 
       if (q.type === 'choice') buildChoice(widget, q, qi);
@@ -538,11 +547,13 @@ function renderPage() {
       stage.appendChild(widget);
     });
 
-    // Static label overlays — no interaction required
-    (page.labels || []).forEach(lb => {
+    (page.labels || []).forEach((lb, li) => {
       const el = document.createElement('div');
       el.className = 'page-label';
-      el.textContent = lb.text || '';
+      el.dataset.lx = lb.x;
+      el.dataset.ly = lb.y;
+      el.dataset.lw = lb.width || 200;
+      el.textContent    = lb.text || '';
       el.style.left     = (lb.x * sx) + 'px';
       el.style.top      = (lb.y * sy) + 'px';
       el.style.width    = ((lb.width || 200) * sx) + 'px';
@@ -554,11 +565,48 @@ function renderPage() {
     updateScore();
   }
 
+  // repositionWidgets — called on resize: only updates position/size/font, never touches state or DOM structure
+  function repositionWidgets() {
+    const { sx, sy, baseFontPx } = calcScale();
+
+    const natW = imgEl.naturalWidth || 1200;
+    stage.querySelectorAll('.answer-widget').forEach(w => {
+      w.style.left     = (parseFloat(w.dataset.qx) * sx) + 'px';
+      w.style.top      = (parseFloat(w.dataset.qy) * sy) + 'px';
+      w.style.fontSize = baseFontPx + 'px';
+      if (w.dataset.dir === 'h') {
+        w.style.maxWidth = ((natW - parseFloat(w.dataset.qx)) * sx) + 'px';
+      } else {
+        w.style.width  = (parseFloat(w.dataset.qw) * sx) + 'px';
+      }
+    });
+
+    stage.querySelectorAll('.page-label').forEach(el => {
+      el.style.left     = (parseFloat(el.dataset.lx) * sx) + 'px';
+      el.style.top      = (parseFloat(el.dataset.ly) * sy) + 'px';
+      el.style.width    = (parseFloat(el.dataset.lw) * sx) + 'px';
+      el.style.fontSize = baseFontPx + 'px';
+    });
+  }
+
   imgEl.complete && imgEl.naturalWidth ? placeWidgets() : (imgEl.onload = placeWidgets);
   updateSpCtrl();
 
+  // ── Resize handler: only reposition, never rebuild ──
+  // On mobile, showing/hiding the keyboard fires resize — we must ignore those.
+  // We detect "real" resize by checking if the image width actually changed.
+  let _lastImgW = imgEl.offsetWidth;
   if (window._rzH) window.removeEventListener('resize', window._rzH);
-  window._rzH = () => { stage.querySelectorAll('.answer-widget, .page-label').forEach(e=>e.remove()); placeWidgets(); };
+  let _rzTimer = null;
+  window._rzH = () => {
+    clearTimeout(_rzTimer);
+    _rzTimer = setTimeout(() => {
+      const newW = imgEl.offsetWidth;
+      if (newW === _lastImgW) return;  // keyboard or scroll — skip
+      _lastImgW = newW;
+      repositionWidgets();
+    }, 150);
+  };
   window.addEventListener('resize', window._rzH);
 }
 
