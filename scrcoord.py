@@ -14,9 +14,10 @@ class ImageViewer:
         self.index = 0
         self.scale = 1.0
         self.current_coords = (0, 0)
+        self.last_click = None  # (x, y) в координатах оригинала
 
-        self.label = tk.Label(root)
-        self.label.pack()
+        self.canvas = tk.Canvas(root, highlightthickness=0)
+        self.canvas.pack()
 
         self.load_image()
 
@@ -27,8 +28,8 @@ class ImageViewer:
         root.bind("2", lambda e: self.set_scale(0.66))
         root.bind("3", lambda e: self.set_scale(1.0))
 
-        self.label.bind("<Motion>", self.mouse_move)
-        self.label.bind("<Button-1>", self.mouse_click)
+        self.canvas.bind("<Motion>", self.mouse_move)
+        self.canvas.bind("<Button-1>", self.mouse_click)
 
     def load_images_sorted(self, folder):
         files = [f for f in os.listdir(folder)
@@ -51,7 +52,13 @@ class ImageViewer:
         resized = self.original_image.resize(new_size)
 
         self.tk_image = ImageTk.PhotoImage(resized)
-        self.label.config(image=self.tk_image)
+
+        self.canvas.config(width=new_size[0], height=new_size[1])
+        self.canvas.delete("all")
+        self.canvas.create_image(0, 0, anchor="nw", image=self.tk_image)
+
+        if self.last_click:
+            self.draw_marker()
 
         self.update_title()
 
@@ -61,10 +68,12 @@ class ImageViewer:
 
     def next_image(self, event=None):
         self.index = (self.index + 1) % len(self.images)
+        self.last_click = None
         self.load_image()
 
     def prev_image(self, event=None):
         self.index = (self.index - 1) % len(self.images)
+        self.last_click = None
         self.load_image()
 
     def mouse_move(self, event):
@@ -77,28 +86,70 @@ class ImageViewer:
         x = int(event.x / self.scale)
         y = int(event.y / self.scale)
 
+        self.last_click = (x, y)
+
         text = f'"x": {x}, "y": {y}'
         print(text)
 
-        # Копирование в буфер обмена
         self.root.clipboard_clear()
         self.root.clipboard_append(text)
-        self.root.update()  # важно для clipboard
+        self.root.update()
+
+        self.update_image()
+
+    def draw_marker(self):
+        x, y = self.last_click
+
+        # перевод в экранные координаты
+        sx = int(x * self.scale)
+        sy = int(y * self.scale)
+
+        w, h = 120, 30
+        r = 10  # радиус скругления
+
+        x1, y1 = sx, sy
+        x2, y2 = sx + w, sy + h
+
+        # фон (черный)
+        self.round_rect(x1, y1, x2, y2, r, fill="black", outline="white", width=2)
+
+        # текст
+        self.canvas.create_text(
+            x1 + 10, (y1 + y2) // 2,
+            text="текст",
+            fill="white",
+            anchor="w",
+            font=("Arial", 12, "bold")
+        )
+
+    def round_rect(self, x1, y1, x2, y2, r, **kwargs):
+        points = [
+            x1+r, y1,
+            x2-r, y1,
+            x2, y1,
+            x2, y1+r,
+            x2, y2-r,
+            x2, y2,
+            x2-r, y2,
+            x1+r, y2,
+            x1, y2,
+            x1, y2-r,
+            x1, y1+r,
+            x1, y1
+        ]
+        return self.canvas.create_polygon(points, smooth=True, **kwargs)
 
     def update_title(self):
         filename = self.images[self.index]
         x, y = self.current_coords
         scale_percent = int(self.scale * 100)
 
-        title = f"{filename} | scale: {scale_percent}% | x: {x}, y: {y}"
-        self.root.title(title)
+        self.root.title(f"{filename} | scale: {scale_percent}% | x: {x}, y: {y}")
 
 
 if __name__ == "__main__":
     root = tk.Tk()
-
-    folder_path = "images"  # укажи свою папку
+    folder_path = "images"  # укажи путь
 
     app = ImageViewer(root, folder_path)
-
     root.mainloop()
