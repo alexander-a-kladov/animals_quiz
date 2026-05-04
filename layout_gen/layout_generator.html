@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layout Generator</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Raleway:wght@300;400;700;900&display=swap');
+
+:root {
+  --bg:      #0c0e13;
+  --bg2:     #12151c;
+  --bg3:     #1a1e28;
+  --line:    #ffffff0f;
+  --accent:  #00e5a0;
+  --accent2: #00a8ff;
+  --warn:    #ffb800;
+  --err:     #ff4d6d;
+  --text:    #dde4f0;
+  --muted:   #5a6480;
+  --mono:    'JetBrains Mono', monospace;
+  --sans:    'Raleway', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+/* ── HEADER ── */
+header {
+  border-bottom: 1px solid var(--line);
+  padding: 20px 32px;
+  display: flex; align-items: center; gap: 16px;
+  background: var(--bg2);
+}
+.hdr-badge {
+  font-family: var(--mono); font-size: .65rem; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  background: var(--accent); color: #000;
+  padding: 3px 8px; border-radius: 3px;
+}
+.hdr-title {
+  font-size: 1.1rem; font-weight: 700; letter-spacing: -.3px;
+  color: var(--text);
+}
+.hdr-sub {
+  font-size: .75rem; color: var(--muted); margin-left: auto;
+  font-family: var(--mono);
+}
+
+/* ── LAYOUT ── */
+.workspace {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  min-height: 0;
+}
+
+/* ── LEFT PANEL ── */
+.panel-left {
+  background: var(--bg2);
+  border-right: 1px solid var(--line);
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+}
+
+.section {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line);
+}
+.section:last-child { border-bottom: none; }
+
+.sec-label {
+  font-family: var(--mono); font-size: .65rem; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-label::after { content: ''; flex: 1; height: 1px; background: var(--accent)22; }
+
+/* Drop zone */
+.drop-zone {
+  border: 1.5px dashed var(--muted)55;
+  border-radius: 10px; padding: 28px 16px;
+  text-align: center; cursor: pointer;
+  transition: all .2s; position: relative;
+  background: var(--bg3);
+}
+.drop-zone:hover, .drop-zone.over {
+  border-color: var(--accent); background: var(--accent)08;
+}
+.drop-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+.dz-icon { font-size: 1.8rem; margin-bottom: 6px; }
+.dz-hint { font-size: .75rem; color: var(--muted); }
+.dz-status { margin-top: 8px; font-family: var(--mono); font-size: .72rem; min-height: 1em; }
+.dz-status.ok  { color: var(--accent); }
+.dz-status.err { color: var(--err); }
+
+/* Preview textarea */
+.txt-preview {
+  width: 100%; background: var(--bg3);
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 12px; font-family: var(--mono); font-size: .72rem;
+  color: var(--muted); resize: vertical; min-height: 120px;
+  line-height: 1.6; outline: none;
+  transition: border-color .2s;
+}
+.txt-preview:focus { border-color: var(--accent)55; color: var(--text); }
+
+/* Parsed info cards */
+.info-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px;
+}
+.info-card {
+  background: var(--bg3); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px 12px;
+}
+.info-val {
+  font-family: var(--mono); font-size: 1rem; font-weight: 700;
+  color: var(--accent);
+}
+.info-key { font-size: .68rem; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Settings */
+.field { margin-bottom: 14px; }
+.field:last-child { margin-bottom: 0; }
+.field label {
+  display: block; font-size: .72rem; color: var(--muted);
+  font-family: var(--mono); text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+.field input[type=number], .field input[type=text] {
+  width: 100%; background: var(--bg3); border: 1px solid var(--line);
+  border-radius: 7px; padding: 8px 11px;
+  font-family: var(--mono); font-size: .85rem; color: var(--text);
+  outline: none; transition: border-color .2s;
+}
+.field input:focus { border-color: var(--accent)66; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* Log */
+.log {
+  font-family: var(--mono); font-size: .7rem; line-height: 1.8;
+  max-height: 160px; overflow-y: auto; padding: 10px 12px;
+  background: var(--bg3); border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.log-ok   { color: var(--accent); }
+.log-warn { color: var(--warn); }
+.log-err  { color: var(--err); }
+.log-info { color: var(--muted); }
+
+/* Buttons */
+.btn {
+  font-family: var(--mono); font-size: .78rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 12px 20px; border: none; border-radius: 8px;
+  cursor: pointer; transition: all .2s; width: 100%;
+}
+.btn-generate {
+  background: var(--accent); color: #000;
+  box-shadow: 0 4px 20px var(--accent)33;
+}
+.btn-generate:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
+.btn-generate:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+
+.btn-copy {
+  background: var(--bg3); border: 1px solid var(--line);
+  color: var(--text);
+}
+.btn-copy:hover { border-color: var(--accent2); color: var(--accent2); }
+
+.btn-dl {
+  display: none; background: var(--accent2)22; border: 1px solid var(--accent2)55;
+  color: var(--accent2);
+}
+.btn-dl:hover { background: var(--accent2)33; }
+.btn-dl.show { display: block; }
+
+.btn-row { display: flex; flex-direction: column; gap: 8px; }
+
+/* ── RIGHT PANEL ── */
+.panel-right {
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.output-header {
+  padding: 14px 20px 10px;
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg2); flex-shrink: 0;
+}
+.out-title { font-family: var(--mono); font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.out-badge {
+  font-family: var(--mono); font-size: .65rem;
+  background: var(--bg3); border: 1px solid var(--line);
+  border-radius: 4px; padding: 2px 8px; color: var(--muted);
+}
+.out-badge.active { border-color: var(--accent)55; color: var(--accent); }
+.output-area {
+  flex: 1; overflow: auto; padding: 0;
+}
+#output-json {
+  width: 100%; height: 100%; min-height: 400px;
+  background: var(--bg); border: none;
+  font-family: var(--mono); font-size: .78rem;
+  color: #8ec8f6; line-height: 1.7; padding: 20px 24px;
+  outline: none; resize: none; white-space: pre;
+  overflow-wrap: normal;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--muted)44; border-radius: 3px; }
+
+/* Responsive */
+@media (max-width: 800px) {
+  .workspace { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .panel-left { max-height: 60vh; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="hdr-badge">QUIZ</span>
+  <span class="hdr-title">Layout Generator</span>
+  <span class="hdr-sub">answers.txt → layout.json</span>
+</header>
+
+<div class="workspace">
+
+  <!-- ══ LEFT: controls ══ -->
+  <div class="panel-left">
+
+    <!-- Drop zone -->
+    <div class="section">
+      <div class="sec-label">Файл с ответами</div>
+      <div class="drop-zone" id="drop-zone">
+        <input type="file" id="file-input" accept=".txt,.text">
+        <div class="dz-icon">📄</div>
+        <div class="dz-hint">answers.txt — перетащите или кликните</div>
+        <div class="dz-status" id="dz-status"></div>
+      </div>
+      <textarea class="txt-preview" id="txt-preview" placeholder="Или вставьте текст сюда…" spellcheck="false" rows="6"></textarea>
+    </div>
+
+    <!-- Parsed info -->
+    <div class="section" id="parsed-section" style="display:none">
+      <div class="sec-label">Распознано</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="info-val" id="inf-size">—</div><div class="info-key">Размер картинки</div></div>
+        <div class="info-card"><div class="info-val" id="inf-pages">—</div><div class="info-key">Стр. / тема</div></div>
+        <div class="info-card"><div class="info-val" id="inf-themes">—</div><div class="info-key">Тем</div></div>
+        <div class="info-card"><div class="info-val" id="inf-questions">—</div><div class="info-key">Вопросов</div></div>
+      </div>
+    </div>
+
+    <!-- Override settings -->
+    <div class="section">
+      <div class="sec-label">Параметры размещения</div>
+      <div class="field-row">
+        <div class="field">
+          <label>Отступ сверху (px)</label>
+          <input type="number" id="margin-top" value="60" min="0">
+        </div>
+        <div class="field">
+          <label>Отступ по бокам (px)</label>
+          <input type="number" id="margin-x" value="30" min="0">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Ширина виджета (px)</label>
+          <input type="number" id="widget-w" value="120" min="40">
+        </div>
+        <div class="field">
+          <label>Позиция X виджета</label>
+          <input type="text" id="widget-x" value="auto" placeholder="auto или число">
+        </div>
+      </div>
+      <div class="field">
+        <label>Направление вариантов выбора</label>
+        <select id="choice-dir" style="width:100%;background:var(--bg3);border:1px solid var(--line);border-radius:7px;padding:8px 11px;font-family:var(--mono);font-size:.85rem;color:var(--text);outline:none;">
+          <option value="horizontal">horizontal</option>
+          <option value="vertical">vertical</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Log -->
+    <div class="section">
+      <div class="sec-label">Лог</div>
+      <div class="log" id="log"><span class="log-info">Загрузите файл…</span></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="section">
+      <div class="btn-row">
+        <button class="btn btn-generate" id="btn-gen" disabled onclick="generate()">▶ Сгенерировать layout.json</button>
+        <button class="btn btn-copy" onclick="copyOutput()">⎘ Копировать JSON</button>
+        <a class="btn btn-dl" id="btn-dl" download="layout.json">⬇ Скачать layout.json</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ RIGHT: output ══ -->
+  <div class="panel-right">
+    <div class="output-header">
+      <span class="out-title">Вывод</span>
+      <span class="out-badge" id="out-badge">—</span>
+    </div>
+    <div class="output-area">
+      <textarea id="output-json" readonly placeholder="Здесь появится layout.json…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  CHOICE PATTERNS  (case-insensitive)
+// ══════════════════════════════════════════════
+const CHOICE_RE = /^(а|б|в|г|да|нет|правда|неправда|неправды)$/i;
+
+function isChoice(token) {
+  return CHOICE_RE.test(token.trim());
+}
+
+// ══════════════════════════════════════════════
+//  PARSE answer token → {answer, comment}
+//  Token format: "ответ (комментарий)" or just "ответ"
+// ══════════════════════════════════════════════
+function parseToken(raw) {
+  raw = raw.trim();
+  const m = raw.match(/^(.+?)\s*\((.+)\)\s*$/);
+  if (m) {
+    return { answer: m[1].trim(), comment: m[2].trim() };
+  }
+  return { answer: raw, comment: null };
+}
+
+// ══════════════════════════════════════════════
+//  PARSE FILE TEXT
+// ══════════════════════════════════════════════
+function parseFile(text) {
+  const log = [];
+  const lines = text.split('\n').map(l => l.trim()).filter(l => l);
+
+  // ── Header line ──
+  const headerLine = lines[0];
+  const imgSizeM = headerLine.match(/image_size\s*=\s*(\d+)x(\d+)/i);
+  const pagesM   = headerLine.match(/pages\s*=\s*(\d+)/i);
+  const nameM    = headerLine.match(/name\s*=\s*(\w+)/i);
+  const startIdM = headerLine.match(/start_id\s*=\s*(\d+)/i);
+
+  if (!imgSizeM || !pagesM || !nameM || !startIdM) {
+    log.push({ type:'err', msg:'Не удалось распознать заголовок файла.' });
+    return { error: true, log };
+  }
+
+  const imgW    = parseInt(imgSizeM[1]);
+  const imgH    = parseInt(imgSizeM[2]);
+  const pagesPerTheme = parseInt(pagesM[1]);
+  const imgName = nameM[1];
+  const startId = parseInt(startIdM[1]);
+
+  log.push({ type:'ok', msg:`Размер: ${imgW}×${imgH}, стр/тема: ${pagesPerTheme}, префикс: ${imgName}, start_id: ${startId}` });
+
+  // ── Parse themes ──
+  // Lines alternate: "N. Название темы." then "ответ; ответ; ..."
+  const themes = [];
+  let i = 1;
+  while (i < lines.length) {
+    const titleLine = lines[i];
+    // Theme line starts with digits + dot
+    const themeM = titleLine.match(/^(\d+)\.\s*(.*)/);
+    if (!themeM) { i++; continue; }
+
+    const themeNum  = parseInt(themeM[1]);
+    const themeName = themeM[2];
+    i++;
+
+    if (i >= lines.length) break;
+
+    const answersLine = lines[i];
+    i++;
+
+    // Skip if answersLine looks like another theme header
+    if (/^\d+\./.test(answersLine)) { i--; continue; }
+
+    const rawTokens = answersLine.split(';').map(t => t.trim()).filter(t => t);
+    const answers = rawTokens.map(parseToken);
+
+    themes.push({ themeNum, themeName, answers });
+    log.push({ type:'info', msg:`Тема ${themeNum}: «${themeName}» — ${answers.length} ответов` });
+  }
+
+  return { imgW, imgH, pagesPerTheme, imgName, startId, themes, log };
+}
+
+// ══════════════════════════════════════════════
+//  GENERATE PAGES
+// ══════════════════════════════════════════════
+function generatePages(parsed, opts) {
+  const { imgW, imgH, pagesPerTheme, imgName, startId, themes } = parsed;
+  const { marginTop, marginX, widgetW, widgetXMode, choiceDir } = opts;
+
+  const pages = [];
+  let globalId = startId;
+
+  themes.forEach((theme, ti) => {
+    const { themeNum, answers } = theme;
+    const totalQ = answers.length;
+
+    // Split answers roughly evenly across pages
+    const perPage = Math.ceil(totalQ / pagesPerTheme);
+
+    for (let p = 0; p < pagesPerTheme; p++) {
+      const slice = answers.slice(p * perPage, (p + 1) * perPage);
+      if (!slice.length) continue;
+
+      // Image number: themeNum * pagesPerTheme - (pagesPerTheme - 1 - p)
+      // e.g. theme=11, pages=2: img 21,22; theme=12: 23,24
+      const imgIndex = (themeNum - (startId / 10 | 0)) * pagesPerTheme + p;
+      // Simpler: sequential numbering from themeNum*pagesPerTheme - pagesPerTheme + 1 + p
+      // But per spec: "нумерация картинок = номер_темы * pages - 1"
+      // Interpret as: first page of theme = themeNum*pagesPerTheme - (pagesPerTheme-1), last = themeNum*pagesPerTheme
+      const firstImgNum = themeNum * pagesPerTheme - (pagesPerTheme - 1);
+      const imgNum = firstImgNum + p;
+      const imgFile = `${imgName}${imgNum}.jpg`;
+
+      // Distribute questions vertically
+      // Usable height = imgH - marginTop - marginTop (bottom margin same)
+      const usableH = imgH - marginTop * 2;
+      const step = slice.length > 1 ? usableH / (slice.length - 1) : 0;
+
+      // X position for widget
+      const qX = widgetXMode === 'auto'
+        ? Math.round(imgW * 0.55)   // ~55% from left — right half of image
+        : parseInt(widgetXMode) || Math.round(imgW * 0.55);
+
+      const questions = slice.map((ans, qi) => {
+        const qY = slice.length === 1
+          ? Math.round(imgH / 2)
+          : Math.round(marginTop + qi * step);
+
+        const { answer, comment } = ans;
+        const choice = isChoice(answer);
+
+        const q = {
+          id: globalId++,
+          type: choice ? 'choice' : 'text',
+          x: qX,
+          y: qY,
+          width: widgetW,
+        };
+
+        if (choice) {
+          // Generate standard options based on answer type
+          const norm = answer.toLowerCase();
+          if (norm === 'да' || norm === 'нет') {
+            q.options = ['да', 'нет'];
+            q.direction = choiceDir;
+          } else if (norm === 'правда' || norm === 'неправда' || norm === 'неправды') {
+            q.options = ['правда', 'неправда'];
+            q.direction = choiceDir;
+          } else {
+            // а/б/в/г
+            const variants = ['а', 'б', 'в', 'г'];
+            const idx = variants.indexOf(norm);
+            q.options = variants.slice(0, Math.max(idx + 1, 3)).map(v => v + ')');
+            q.answer  = norm + ')';
+            q.direction = choiceDir;
+          }
+          if (!q.answer) q.answer = answer;
+        } else {
+          q.answer = answer;
+        }
+
+        if (comment) q.comment = comment;
+
+        return q;
+      });
+
+      pages.push({
+        image: imgFile,
+        questions
+      });
+    }
+  });
+
+  return pages;
+}
+
+// ══════════════════════════════════════════════
+//  UI STATE
+// ══════════════════════════════════════════════
+let parsedData = null;
+
+function log(type, msg) {
+  const el = document.getElementById('log');
+  const span = document.createElement('span');
+  span.className = 'log-' + type;
+  span.textContent = (type === 'ok' ? '✓ ' : type === 'err' ? '✗ ' : type === 'warn' ? '⚠ ' : '  ') + msg;
+  el.appendChild(span);
+  el.appendChild(document.createTextNode('\n'));
+  el.scrollTop = el.scrollHeight;
+}
+
+function clearLog() {
+  document.getElementById('log').innerHTML = '';
+}
+
+function processText(text) {
+  clearLog();
+  document.getElementById('txt-preview').value = text;
+
+  const result = parseFile(text);
+
+  result.log.forEach(e => log(e.type, e.msg));
+
+  if (result.error || !result.themes) {
+    setSt('err', 'Ошибка парсинга');
+    document.getElementById('parsed-section').style.display = 'none';
+    document.getElementById('btn-gen').disabled = true;
+    return;
+  }
+
+  parsedData = result;
+
+  const totalQ = result.themes.reduce((s,t) => s + t.answers.length, 0);
+  document.getElementById('inf-size').textContent     = `${result.imgW}×${result.imgH}`;
+  document.getElementById('inf-pages').textContent    = result.pagesPerTheme;
+  document.getElementById('inf-themes').textContent   = result.themes.length;
+  document.getElementById('inf-questions').textContent = totalQ;
+  document.getElementById('parsed-section').style.display = 'block';
+
+  setSt('ok', `${result.themes.length} тем, ${totalQ} вопросов`);
+  document.getElementById('btn-gen').disabled = false;
+  log('ok', 'Файл успешно распознан. Нажмите «Сгенерировать».');
+}
+
+function setSt(type, msg) {
+  const el = document.getElementById('dz-status');
+  el.textContent = msg;
+  el.className = 'dz-status ' + (type || '');
+}
+
+// ══════════════════════════════════════════════
+//  DROP ZONE
+// ══════════════════════════════════════════════
+const zone  = document.getElementById('drop-zone');
+const finp  = document.getElementById('file-input');
+const tprev = document.getElementById('txt-preview');
+
+zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('over'); });
+zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+zone.addEventListener('drop', e => {
+  e.preventDefault(); zone.classList.remove('over');
+  if (e.dataTransfer.files[0]) readFile(e.dataTransfer.files[0]);
+});
+finp.addEventListener('change', e => { if (e.target.files[0]) readFile(e.target.files[0]); });
+
+tprev.addEventListener('input', () => {
+  if (tprev.value.trim()) processText(tprev.value);
+});
+
+function readFile(file) {
+  const r = new FileReader();
+  r.onload = e => processText(e.target.result);
+  r.readAsText(file, 'utf-8');
+}
+
+// ══════════════════════════════════════════════
+//  GENERATE
+// ══════════════════════════════════════════════
+function generate() {
+  if (!parsedData) return;
+
+  clearLog();
+  log('info', 'Генерация…');
+
+  const opts = {
+    marginTop:  parseInt(document.getElementById('margin-top').value) || 60,
+    marginX:    parseInt(document.getElementById('margin-x').value)   || 30,
+    widgetW:    parseInt(document.getElementById('widget-w').value)   || 120,
+    widgetXMode: document.getElementById('widget-x').value.trim() || 'auto',
+    choiceDir:  document.getElementById('choice-dir').value,
+  };
+
+  const pages = generatePages(parsedData, opts);
+
+  // Build full layout object
+  const layout = {
+    title: parsedData.imgName,
+    showAnswers: true,
+    startPage: 0,
+    pages
+  };
+
+  const json = JSON.stringify(layout, null, 2);
+  document.getElementById('output-json').value = json;
+
+  const badge = document.getElementById('out-badge');
+  badge.textContent = `${pages.length} страниц · ${json.length} байт`;
+  badge.classList.add('active');
+
+  // Download link
+  const blob = new Blob([json], { type: 'application/json;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const dl   = document.getElementById('btn-dl');
+  dl.href    = url;
+  dl.download = 'layout.json';
+  dl.classList.add('show');
+
+  log('ok', `Сгенерировано ${pages.length} страниц`);
+  pages.forEach(p => log('info', `  ${p.image}: ${p.questions.length} вопросов`));
+}
+
+function copyOutput() {
+  const val = document.getElementById('output-json').value;
+  if (!val) return;
+  navigator.clipboard.writeText(val).then(() => {
+    const btn = document.querySelector('.btn-copy');
+    const old = btn.textContent;
+    btn.textContent = '✓ Скопировано';
+    setTimeout(() => btn.textContent = old, 1500);
+  });
+}
+</script>
+</body>
+</html>
