@@ -1981,7 +1981,1125 @@
           "direction": "horizontal"
         }
       ]
+    },    
+    {
+      "image": "animals33.jpg",
+      "questions": [
+        {
+          "id": 171,
+          "type": "choice",
+          "x": 52, "y": 219,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "а)",
+          "comment": "иглобрюх тоже надувается, но у него нет иголок"
+        },
+        {
+          "id": 172,
+          "type": "choice",
+          "x": 430, "y": 566,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "а)",
+          "direction": "horizontal"
+        },
+        {
+          "id": 173,
+          "type": "choice",
+          "x": 114, "y": 713,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)",
+          "direction": "horizontal",
+          "comment": "у нее есть защитные отметины, указывающие, что она ядовитая"
+        },
+        {
+          "id": 174,
+          "type": "text",
+          "x": 386, "y": 785,
+          "width": 160,
+          "answer": ["чтобы их не съели родители", "чтобы не быть съеденными родителями", "защита от родителей"],
+          "direction": "horizontal"
+        },
+        {
+          "id": 175,
+          "type": "choice",
+          "x": 39, "y": 871,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)",
+          "comment": "хвост продолжает дергаться, чтобы еще больше отвлекать"
+        }
+      ]
+    },
+    {
+      "image": "animals34.jpg",
+      "questions": [
+        {
+          "id": 176,
+          "type": "text",
+          "x": 414, "y": 103,
+          "width": 100,
+          "answer": ["опоссум", "опоссумы"]
+        },
+        {
+          "id": 177,
+          "type": "text",
+          "x": 93, "y": 140,
+          "width": 120,
+          "answer": ["верблюд","верблюды"]
+        },
+        {
+          "id": 178,
+          "type": "text",
+          "x": 338, "y": 406,
+          "width": 100,
+          "answer": ["глазая", "четырехглазая"]
+        },
+        {
+          "id": 179,
+          "type": "choice",
+          "x": 374, "y": 468,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)"
+        },
+        {
+          "id": 180,
+          "type": "choice",
+          "x": 213, "y": 679,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "а)"
+        }
+      ]
+    },
+    {
+      "image": "animals35.jpg",
+      "questions": [
+        {
+          "id": 181,
+          "type": "text",
+          "x": 381, "y": 152,
+          "width": 100,
+          "answer": "сумчатые"
+        },
+        {
+          "id": 182,
+          "type": "text",
+          "x": 263, "y": 296,
+          "width": 150,
+          "answer": ["Тасманийский дьявол", "тасманский дьявол"]
+        },
+        {
+          "id": 183,
+          "type": "choice",
+          "x": 245, "y": 627,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)"
+        },
+        {
+          "id": 184,
+          "type": "choice",
+          "x": 51, "y": 758,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "а)"
+        },
+        {
+          "id": 185,
+          "type": "choice",
+          "x": 375, "y": 885,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "а)",
+          "direction": "horizontal"
+        }
+      ]
+    },
+    {
+      "image": "animals36.jpg",
+      "questions": [
+        {
+          "id": 186,
+          "type": "choice",
+          "x": 217, "y": 454,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)"
+        },
+        {
+          "id": 187,
+          "type": "choice",
+          "x": 284, "y": 603,
+          "width": 80,
+          "options": ["норах", "гнездах"],
+          "answer": "норах",
+          "direction": "horizontal"
+        },
+        {
+          "id": 188,
+          "type": "choice",
+          "x": 260, "y": 731,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)"
+        },
+        {
+          "id": 189,
+          "type": "choice",
+          "x": 416, "y": 843,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)",
+          "direction": "horizontal"
+        },
+        {
+          "id": 190,
+          "type": "choice",
+          "x": 161, "y": 966,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет",
+          "comment": "30% живет в обеих Америках"
+        }
+      ]
+    },
+    {
+      "image": "animals37.jpg",
+      "questions": [
+        {
+          "id": 191,
+          "type": "choice",
+          "x": 397, "y": 135,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет"
+        },
+        {
+          "id": 192,
+          "type": "choice",
+          "x": 360, "y": 209,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "да"
+        },
+        {
+          "id": 193,
+          "type": "choice",
+          "x": 377, "y": 250,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет"
+        },
+        {
+          "id": 194,
+          "type": "choice",
+          "x": 118, "y": 295,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "да",
+          "comment": "слезы выступают, когда они глотают пищу"
+        },
+        {
+          "id": 195,
+          "type": "choice",
+          "x": 247, "y": 412,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "да"
+        },
+        {
+          "id": 196,
+          "type": "choice",
+          "x": 201, "y": 504,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет"
+        },
+        {
+          "id": 197,
+          "type": "choice",
+          "x": 179, "y": 592,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет",
+          "comment": "там хранится жир"
+        },
+        {
+          "id": 198,
+          "type": "choice",
+          "x": 168, "y": 680,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "да"
+        },
+        {
+          "id": 199,
+          "type": "choice",
+          "x": 83, "y": 803,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет"
+        },
+        {
+          "id": 200,
+          "type": "choice",
+          "x": 302, "y": 872,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "да",
+          "comment": "эти гнезда сделаны из птичьей слюны"
+        }
+      ]
+    },
+    {
+      "image": "animals38.jpg",
+      "questions": [
+        {
+          "id": 201,
+          "type": "choice",
+          "x": 139, "y": 47,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "да",
+          "comment": "им нужен лишь крошечный кусочек из центра тела"
+        },
+        {
+          "id": 202,
+          "type": "choice",
+          "x": 90, "y": 169,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет",
+          "comment": "он лишь чуть менее восприимчив"
+        },
+        {
+          "id": 203,
+          "type": "choice",
+          "x": 360, "y": 201,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "да"
+        },
+        {
+          "id": 204,
+          "type": "choice",
+          "x": 397, "y": 269,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет"
+        },
+        {
+          "id": 205,
+          "type": "choice",
+          "x": 246, "y": 350,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "да"
+        },
+        {
+          "id": 206,
+          "type": "choice",
+          "x": 185, "y": 419,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет",
+          "comment": "они видят в синем и зеленом цветах"
+        },
+        {
+          "id": 207,
+          "type": "choice",
+          "x": 294, "y": 497,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет",
+          "comment": "это окружающий шум усиленный раковиной"
+        },
+        {
+          "id": 208,
+          "type": "choice",
+          "x": 353, "y": 538,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет"
+        },
+        {
+          "id": 209,
+          "type": "choice",
+          "x": 267, "y": 622,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет"
+        },
+        {
+          "id": 210,
+          "type": "choice",
+          "x": 166, "y": 740,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "да"
+        }
+      ]
+    },
+    {
+      "image": "animals39.jpg",
+      "questions": [
+        {
+          "id": 211,
+          "type": "choice",
+          "x": 252, "y": 174,
+          "width": 60,
+          "options": [
+            "а, в, г",
+            "б, д",
+            "а, б, д",
+            "в, г",
+            "все"
+          ],
+          "answer": "а, б, д",
+          "direction": "horizontal"
+        },
+        {
+          "id": 212,
+          "type": "choice",
+          "x": 392, "y": 226,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)",
+          "direction": "horizontal"
+        },
+        {
+          "id": 213,
+          "type": "choice",
+          "x": 324, "y": 317,
+          "width": 60,
+          "options": ["черные", "белые", "бурые"],
+          "answer": "черные",
+          "direction": "horizontal"
+        },
+        {
+          "id": 214,
+          "type": "choice",
+          "x": 201, "y": 401,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)"
+        },
+        {
+          "id": 215,
+          "type": "text",
+          "x": 70, "y": 561,
+          "width": 120,
+          "answer": ["рак-отшельник", "отшельник"]
+        }
+      ]
+    },
+    {
+      "image": "animals40.jpg",
+      "questions": [
+        {
+          "id": 216,
+          "type": "choice",
+          "x": 47, "y": 124,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "а)"
+        },
+        {
+          "id": 217,
+          "type": "text",
+          "x": 316, "y": 601,
+          "width": 120,
+          "answer": ["кораблик", "Португальский кораблик"]
+        },
+        {
+          "id": 218,
+          "type": "text",
+          "x": 419, "y": 695,
+          "width": 120,
+          "answer": "морская звезда"
+        },
+        {
+          "id": 219,
+          "type": "choice",
+          "x": 284, "y": 752,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)",
+          "direction": "horizontal"
+        },
+        {
+          "id": 220,
+          "type": "choice",
+          "x": 354, "y": 838,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)",
+          "direction": "horizontal"
+        }
+      ]
+    },
+    {
+      "image": "animals41.jpg",
+      "questions": [
+        {
+          "id": 221,
+          "type": "choice",
+          "x": 357, "y": 157,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)",
+          "direction": "horizontal"
+        },
+        {
+          "id": 222,
+          "type": "choice",
+          "x": 206, "y": 260,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)",
+          "direction": "horizontal"
+        },
+        {
+          "id": 223,
+          "type": "choice",
+          "x": 74, "y": 514,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)",
+          "comment": "они падают медленно из-за малого веса"
+        },
+        {
+          "id": 224,
+          "type": "choice",
+          "x": 163, "y": 605,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет"
+        },
+        {
+          "id": 225,
+          "type": "choice",
+          "x": 182, "y": 790,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)"
+        }
+      ]
+    },
+    {
+      "image": "animals42.jpg",
+      "questions": [
+        {
+          "id": 226,
+          "type": "choice",
+          "x": 83, "y": 32,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)",
+          "direction": "horizontal",
+          "comment": "блохи приплыли из Китая по Средиземному морю на торговых кораблях, живя на крысах"
+        },
+        {
+          "id": 227,
+          "type": "choice",
+          "x": 348, "y": 224,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "а)",
+          "direction": "horizontal"
+        },
+        {
+          "id": 228,
+          "type": "text",
+          "x": 415, "y": 316,
+          "width": 80,
+          "answer": ["крысы", "крыс"]
+        },
+        {
+          "id": 229,
+          "type": "choice",
+          "x": 204, "y": 399,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "а)"
+        },
+        {
+          "id": 230,
+          "type": "choice",
+          "x": 128, "y": 504,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет"
+        }
+      ]
+    },
+    {
+      "image": "animals43.jpg",
+      "questions": [
+        {
+          "id": 231,
+          "type": "choice",
+          "x": 225, "y": 127,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "а)",
+          "direction": "horizontal"
+        },
+        {
+          "id": 232,
+          "type": "text",
+          "x": 216, "y": 332,
+          "width": 80,
+          "answer": ["морж", "моржом"]
+        },
+        {
+          "id": 233,
+          "type": "choice",
+          "x": 394, "y": 412,
+          "width": 40,
+          "options": [
+            "северном",
+            "южном"
+          ],
+          "direction": "horizontal",
+          "answer": "южном"
+        },
+        {
+          "id": 234,
+          "type": "choice",
+          "x": 197, "y": 464,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)",
+          "direction": "horizontal"
+        },
+        {
+          "id": 235,
+          "type": "choice",
+          "x": 224, "y": 630,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)"
+        }
+      ]
+    },
+    {
+      "image": "animals44.jpg",
+      "questions": [
+        {
+          "id": 236,
+          "type": "choice",
+          "x": 287, "y": 482,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)"
+        },
+        {
+          "id": 237,
+          "type": "text",
+          "x": 413, "y": 622,
+          "width": 120,
+          "answer": "Великий Устюг"
+        },
+        {
+          "id": 238,
+          "type": "choice",
+          "x": 530, "y": 675,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "да"
+        },
+        {
+          "id": 239,
+          "type": "text",
+          "x": 488, "y": 758,
+          "width": 120,
+          "answer": "снежный барс"
+        },
+        {
+          "id": 240,
+          "type": "choice",
+          "x": 326, "y": 917,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)"
+        }
+      ]
+    },
+    {
+      "image": "animals45.jpg",
+      "questions": [
+        {
+          "id": 241,
+          "type": "choice",
+          "x": 36, "y": 152,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)",
+          "comment": "он достигает трех метров в длину"
+        },
+        {
+          "id": 242,
+          "type": "choice",
+          "x": 356, "y": 272,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "да"
+        },
+        {
+          "id": 243,
+          "type": "text",
+          "x": 188, "y": 383,
+          "width": 100,
+          "answer": "хамелеон"
+        },
+        {
+          "id": 244,
+          "type": "choice",
+          "x": 282, "y": 728,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)"
+        },
+        {
+          "id": 245,
+          "type": "choice",
+          "x": 41, "y": 874,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)"
+        }
+      ]
+    },
+    {
+      "image": "animals46.jpg",
+      "questions": [
+        {
+          "id": 246,
+          "type": "choice",
+          "x": 171, "y": 360,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)"
+        },
+        {
+          "id": 247,
+          "type": "choice",
+          "x": 374, "y": 546,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "а)"
+        },
+        {
+          "id": 248,
+          "type": "choice",
+          "x": 41, "y": 713,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)",
+          "comment": "у змей нет ушей"
+        },
+        {
+          "id": 249,
+          "type": "choice",
+          "x": 393, "y": 877,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)"
+          ],
+          "direction": "horizontal",
+          "answer": "а)"
+        },
+        {
+          "id": 250,
+          "type": "choice",
+          "x": 293, "y": 938,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)",
+          "direction": "horizontal"
+        }
+      ]
+    },
+    {
+      "image": "animals47.jpg",
+      "questions": [
+        {
+          "id": 251,
+          "type": "choice",
+          "x": 459, "y": 107,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)",
+          "direction": "horizontal"
+        },
+        {
+          "id": 252,
+          "type": "choice",
+          "x": 433, "y": 229,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)",
+          "direction": "horizontal"
+        },
+        {
+          "id": 253,
+          "type": "choice",
+          "x": 72, "y": 343,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "а)"
+        },
+        {
+          "id": 254,
+          "type": "choice",
+          "x": 47, "y": 643,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)"
+        },
+        {
+          "id": 255,
+          "type": "text",
+          "x": 349, "y": 963,
+          "width": 40,
+          "answer": "о",
+          "comment": "волосатая лягушка"
+        }
+      ]
+    },
+    {
+      "image": "animals48.jpg",
+      "questions": [
+        {
+          "id": 256,
+          "type": "choice",
+          "x": 443, "y": 73,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "да",
+          "comment": "у жабы нет"
+        },
+        {
+          "id": 257,
+          "type": "choice",
+          "x": 73, "y": 169,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "в)"
+        },
+        {
+          "id": 258,
+          "type": "choice",
+          "x": 523, "y": 371,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "а)",
+          "direction": "horizontal"
+        },
+        {
+          "id": 259,
+          "type": "choice",
+          "x": 212, "y": 538,
+          "width": 40,
+          "options": [
+            "а)",
+            "б)",
+            "в)"
+          ],
+          "answer": "б)"
+        },
+        {
+          "id": 260,
+          "type": "choice",
+          "x": 278, "y": 686,
+          "width": 40,
+          "options": [
+            "да",
+            "нет"
+          ],
+          "direction": "horizontal",
+          "answer": "нет"
+        }
+      ]
     }
+
 
 ]
 }
