@@ -31,11 +31,22 @@ class TextEditor:
         self.filename = None
         self.modified = False
 
-        self.text = tk.Text(root, undo=True, bg="#1e1e1e", fg="#ffffff", insertbackground="white")
-        self.text.pack(fill="both", expand=True)
+        # контейнер для текста + скролла
+        frame = tk.Frame(root)
+        frame.pack(fill="both", expand=True)
+
+        scrollbar = tk.Scrollbar(frame)
+        scrollbar.pack(side="right", fill="y")
+
+        self.text = tk.Text(frame, undo=True, bg="#1e1e1e", fg="#ffffff", insertbackground="white", yscrollcommand=scrollbar.set)
+        self.text.pack(side="left", fill="both", expand=True)
+
+        scrollbar.config(command=self.text.yview)
 
         self.text.bind("<<Modified>>", self.on_modified)
         self.text.bind("<Button-3>", self.show_context_menu)
+        self.root.bind("<Control-f>", lambda e: self.find_text())
+        self.root.bind("<Control-s>", lambda e: self.save_file())
 
         self.templates = TemplateManager()
 
@@ -115,8 +126,15 @@ class TextEditor:
             self.text.tag_remove("found", "1.0", tk.END)
             self.text.tag_add("found", pos, end)
             self.text.tag_config("found", background="yellow", foreground="black")
-            self.text.mark_set(tk.INSERT, end)
+
+            # перемещаем курсор
+            self.text.mark_set(tk.INSERT, pos)
+
+            # прокручиваем к найденному
             self.text.see(pos)
+
+            # даём фокус
+            self.text.focus_set()
 
     def replace_text(self):
         find = simpledialog.askstring("Find", "Find:")
