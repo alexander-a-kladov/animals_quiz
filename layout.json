@@ -1,7 +1,7 @@
 {
  "title": "Викторина о животных (тест)",
  "showAnswers": true,
- "startPage":68,
+ "startPage":78,
  "pages": [
 
   {
@@ -4614,8 +4614,7 @@
         {
           "id": 381,
           "type": "choice",
-          "x": 360,
-          "y": 60,
+          "x": 219, "y": 129,
           "width": 40,
           "options": [
             "а)",
@@ -4629,22 +4628,19 @@
         {
           "id": 382,
           "type": "choice",
-          "x": 360,
-          "y": 286,
+          "x": 425, "y": 280,
           "width": 40,
           "options": [
             "а)",
             "б)",
             "в)"
           ],
-          "answer": "б)",
-          "direction": "horizontal"
+          "answer": "б)"
         },
         {
           "id": 383,
           "type": "choice",
-          "x": 360,
-          "y": 512,
+          "x": 212, "y": 403,
           "width": 40,
           "options": [
             "а)",
@@ -4658,30 +4654,26 @@
         {
           "id": 384,
           "type": "choice",
-          "x": 360,
-          "y": 738,
+          "x": 320, "y": 690,
           "width": 40,
           "options": [
             "а)",
             "б)",
             "в)"
           ],
-          "answer": "а)",
-          "direction": "horizontal"
+          "answer": "а)"
         },
         {
           "id": 385,
           "type": "choice",
-          "x": 360,
-          "y": 964,
+          "x": 39, "y": 848,
           "width": 40,
           "options": [
             "а)",
             "б)",
             "в)"
           ],
-          "answer": "б)",
-          "direction": "horizontal"
+          "answer": "б)"
         }
       ]
     },
@@ -4691,22 +4683,19 @@
         {
           "id": 386,
           "type": "choice",
-          "x": 360,
-          "y": 60,
+          "x": 42, "y": 332,
           "width": 40,
           "options": [
             "а)",
             "б)",
             "в)"
           ],
-          "answer": "в)",
-          "direction": "horizontal"
+          "answer": "в)"
         },
         {
           "id": 387,
           "type": "choice",
-          "x": 360,
-          "y": 286,
+          "x": 348, "y": 451,
           "width": 40,
           "options": [
             "да",
@@ -4718,8 +4707,7 @@
         {
           "id": 388,
           "type": "choice",
-          "x": 360,
-          "y": 512,
+          "x": 52, "y": 509,
           "width": 40,
           "options": [
             "а)",
@@ -4727,51 +4715,50 @@
             "в)"
           ],
           "answer": "а)",
-          "direction": "horizontal",
           "comment": "вообще-то у них даже меньше шансов выжить, чем у других насекомых"
         },
         {
           "id": 389,
           "type": "text",
-          "x": 360,
-          "y": 738,
-          "width": 40,
+          "x": 292, "y": 740,
+          "width": 100,
           "answer": "саранча"
         },
         {
           "id": 390,
           "type": "text",
-          "x": 360,
-          "y": 964,
-          "width": 40,
-          "answer": "светляки"
+          "x": 256, "y": 844,
+          "width": 100,
+          "answer": ["светляки", "светлячки"]
         }
-      ]
+      ],
+	"labels": [
+		{"text": "неверно", "x": 487, "y": 484, "width":80}
+	]
     },
     {
       "image": "animals73.jpg",
       "questions": [
         {
           "id": 391,
-          "type": "text",
-          "x": 360,
-          "y": 60,
-          "width": 40,
-          "answer": "а1 б2"
+          "type": "choice",
+          "x": 283, "y": 134,
+	  "options": ["а2 б1", "а1 б2"], 
+          "width": 60,
+          "answer": "а1 б2",
+          "direction": "horizontal"
         },
         {
           "id": 392,
           "type": "text",
-          "x": 360,
-          "y": 286,
-          "width": 40,
-          "answer": "гусь"
+          "x": 270, "y": 258,
+          "width": 80,
+          "answer": ["гусь", "гуся"]
         },
         {
           "id": 393,
           "type": "choice",
-          "x": 360,
-          "y": 512,
+          "x": 318, "y": 311,
           "width": 40,
           "options": [
             "а)",
@@ -4783,19 +4770,18 @@
         },
         {
           "id": 394,
-          "type": "text",
-          "x": 360,
-          "y": 738,
-          "width": 40,
+          "type": "choice",
+          "x": 334, "y": 441,
+          "width": 60,
+	  "options": ["а1,б2,в3","а2,б3,в1","а3,б2,в1"],
           "answer": "а2,б3,в1"
         },
         {
           "id": 395,
           "type": "text",
-          "x": 360,
-          "y": 964,
-          "width": 40,
-          "answer": "лисица"
+          "x": 130, "y": 590,
+          "width": 80,
+          "answer": ["лиса","лисица"]
         }
       ]
     },
@@ -4804,33 +4790,33 @@
       "questions": [
         {
           "id": 396,
-          "type": "text",
-          "x": 360,
-          "y": 60,
-          "width": 40,
-          "answer": "а4,б3,в5,г1,д2"
+          "type": "choice",
+          "x": 94, "y": 247,
+          "width": 100,
+	  "options": ["а1,б2,в3,г4,д5", "а5,б4,в3,г2,д1", "а4,б3,в5,г1,д2"],
+          "answer": "а4,б3,в5,г1,д2",
+          "direction": "horizontal"
         },
         {
           "id": 397,
           "type": "text",
-          "x": 360,
-          "y": 286,
-          "width": 40,
+          "x": 205, "y": 613,
+          "width": 80,
           "answer": "нора"
         },
         {
           "id": 398,
-          "type": "text",
-          "x": 360,
-          "y": 512,
+          "type": "choice",
+          "x": 270, "y": 710,
           "width": 40,
-          "answer": "Каталонская"
+	  "options": ["а)", "б)", "в)"],
+          "answer": "б)",
+          "direction": "horizontal"
         },
         {
           "id": 399,
           "type": "choice",
-          "x": 360,
-          "y": 738,
+          "x": 176, "y": 831,
           "width": 40,
           "options": [
             "а)",
@@ -4843,9 +4829,8 @@
         {
           "id": 400,
           "type": "text",
-          "x": 360,
-          "y": 964,
-          "width": 40,
+          "x": 209, "y": 921,
+          "width": 80,
           "answer": "пава"
         }
       ]
@@ -4855,17 +4840,17 @@
       "questions": [
         {
           "id": 401,
-          "type": "text",
-          "x": 360,
-          "y": 60,
-          "width": 40,
-          "answer": "в,а,б"
+          "type": "choice",
+          "x": 268, "y": 78,
+          "width": 60,
+	  "options": ["а,б,в","б,а,в","в,а,б"],
+          "answer": "в,а,б",
+          "direction": "horizontal"
         },
         {
           "id": 402,
           "type": "choice",
-          "x": 360,
-          "y": 286,
+          "x": 375, "y": 229,
           "width": 40,
           "options": [
             "а)",
@@ -4878,8 +4863,7 @@
         {
           "id": 403,
           "type": "choice",
-          "x": 360,
-          "y": 512,
+          "x": 338, "y": 325,
           "width": 40,
           "options": [
             "правда",
@@ -4891,8 +4875,7 @@
         {
           "id": 404,
           "type": "choice",
-          "x": 360,
-          "y": 738,
+          "x": 309, "y": 415,
           "width": 40,
           "options": [
             "а)",
@@ -4905,16 +4888,21 @@
         {
           "id": 405,
           "type": "choice",
-          "x": 360,
-          "y": 964,
+          "x": 204, "y": 547,
           "width": 40,
           "options": [
             "а)",
             "б)",
             "в)"
           ],
-          "answer": "б)",
-          "direction": "horizontal"
+          "answer": "б)"
+        },
+	{
+          "id": 406,
+          "type": "text",
+          "x": 21, "y": 785,
+          "width": 100,
+          "answer": ["рыба-ангел","ангел"]
         }
       ]
     },
@@ -4922,18 +4910,9 @@
       "image": "animals76.jpg",
       "questions": [
         {
-          "id": 406,
-          "type": "text",
-          "x": 360,
-          "y": 60,
-          "width": 40,
-          "answer": "рыба-ангел"
-        },
-        {
           "id": 407,
           "type": "choice",
-          "x": 360,
-          "y": 286,
+          "x": 380, "y": 158,
           "width": 40,
           "options": [
             "а)",
@@ -4946,22 +4925,19 @@
         {
           "id": 408,
           "type": "choice",
-          "x": 360,
-          "y": 512,
+          "x": 67, "y": 287,
           "width": 40,
           "options": [
             "а)",
             "б)",
             "в)"
           ],
-          "answer": "в)",
-          "direction": "horizontal"
+          "answer": "в)"
         },
         {
           "id": 409,
           "type": "choice",
-          "x": 360,
-          "y": 738,
+          "x": 86, "y": 518,
           "width": 40,
           "options": [
             "да",
@@ -4974,16 +4950,14 @@
         {
           "id": 410,
           "type": "choice",
-          "x": 360,
-          "y": 964,
+          "x": 67, "y": 589,
           "width": 40,
           "options": [
             "а)",
             "б)",
             "в)"
           ],
-          "answer": "б)",
-          "direction": "horizontal"
+          "answer": "б)"
         }
       ]
     },
@@ -4993,8 +4967,7 @@
         {
           "id": 411,
           "type": "choice",
-          "x": 360,
-          "y": 60,
+          "x": 91, "y": 161,
           "width": 40,
           "options": [
             "а)",
@@ -5008,8 +4981,7 @@
         {
           "id": 412,
           "type": "choice",
-          "x": 360,
-          "y": 286,
+          "x": 299, "y": 300,
           "width": 40,
           "options": [
             "а)",
@@ -5021,39 +4993,36 @@
         },
         {
           "id": 413,
-          "type": "text",
-          "x": 360,
-          "y": 512,
-          "width": 40,
-          "answer": "африканский"
+          "type": "choice",
+          "x": 241, "y": 377,
+          "width": 100,
+	  "options": ["индийский","африканский"],
+          "answer": "африканский",
+          "direction": "horizontal"
         },
         {
           "id": 414,
           "type": "choice",
-          "x": 360,
-          "y": 738,
+          "x": 73, "y": 517,
           "width": 40,
           "options": [
             "а)",
             "б)",
             "в)"
           ],
-          "answer": "б)",
-          "direction": "horizontal"
+          "answer": "б)"
         },
         {
           "id": 415,
           "type": "choice",
-          "x": 360,
-          "y": 964,
+          "x": 161, "y": 717,
           "width": 40,
           "options": [
             "а)",
             "б)",
             "в)"
           ],
-          "answer": "а)",
-          "direction": "horizontal"
+          "answer": "а)"
         }
       ]
     },
@@ -5063,30 +5032,26 @@
         {
           "id": 416,
           "type": "text",
-          "x": 360,
-          "y": 60,
-          "width": 40,
+          "x": 316, "y": 129,
+          "width": 80,
           "answer": "хобот"
         },
         {
           "id": 417,
           "type": "choice",
-          "x": 360,
-          "y": 286,
+          "x": 72, "y": 242,
           "width": 40,
           "options": [
             "а)",
             "б)",
             "в)"
           ],
-          "answer": "в)",
-          "direction": "horizontal"
+          "answer": "в)"
         },
         {
           "id": 418,
           "type": "choice",
-          "x": 360,
-          "y": 512,
+          "x": 242, "y": 371,
           "width": 40,
           "options": [
             "а)",
@@ -5098,26 +5063,25 @@
         },
         {
           "id": 419,
-          "type": "text",
-          "x": 360,
-          "y": 738,
-          "width": 40,
+          "type": "choice",
+          "x": 347, "y": 468,
+          "width": 60,
+	  "options": ["слон", "мышь"],
           "answer": "мышь",
-          "comment": "слоны не умеют прыгать"
+          "comment": "слоны не умеют прыгать",
+          "direction": "horizontal"
         },
         {
           "id": 420,
           "type": "choice",
-          "x": 360,
-          "y": 964,
+          "x": 55, "y": 589,
           "width": 40,
           "options": [
             "а)",
             "б)",
             "в)"
           ],
-          "answer": "а)",
-          "direction": "horizontal"
+          "answer": "а)"
         }
       ]
     },
@@ -5127,8 +5091,7 @@
         {
           "id": 421,
           "type": "choice",
-          "x": 360,
-          "y": 60,
+          "x": 308, "y": 127,
           "width": 40,
           "options": [
             "а)",
@@ -5141,8 +5104,7 @@
         {
           "id": 422,
           "type": "choice",
-          "x": 360,
-          "y": 286,
+          "x": 322, "y": 227,
           "width": 40,
           "options": [
             "а)",
@@ -5155,8 +5117,7 @@
         {
           "id": 423,
           "type": "choice",
-          "x": 360,
-          "y": 512,
+          "x": 353, "y": 373,
           "width": 40,
           "options": [
             "а)",
@@ -5168,17 +5129,17 @@
         },
         {
           "id": 424,
-          "type": "text",
-          "x": 360,
-          "y": 738,
-          "width": 40,
-          "answer": "с помощью крыльев"
+          "type": "choice",
+          "x": 279, "y": 490,
+	  "options": ["крыльев", "ног"],
+          "width": 50,
+          "answer": "крыльев",
+          "direction": "horizontal"
         },
         {
           "id": 425,
           "type": "choice",
-          "x": 360,
-          "y": 964,
+          "x": 227, "y": 563,
           "width": 40,
           "options": [
             "а)",
@@ -5186,7 +5147,6 @@
             "в)"
           ],
           "answer": "б)",
-          "direction": "horizontal",
           "comment": "из-за съеденных костей"
         }
       ]
@@ -5197,8 +5157,7 @@
         {
           "id": 426,
           "type": "choice",
-          "x": 360,
-          "y": 60,
+          "x": 323, "y": 99,
           "width": 40,
           "options": [
             "а)",
@@ -5211,8 +5170,7 @@
         {
           "id": 427,
           "type": "choice",
-          "x": 360,
-          "y": 286,
+          "x": 277, "y": 221,
           "width": 40,
           "options": [
             "а)",
@@ -5226,8 +5184,7 @@
         {
           "id": 428,
           "type": "choice",
-          "x": 360,
-          "y": 512,
+          "x": 318, "y": 318,
           "width": 40,
           "options": [
             "правда",
@@ -5239,8 +5196,7 @@
         {
           "id": 429,
           "type": "choice",
-          "x": 360,
-          "y": 738,
+          "x": 256, "y": 405,
           "width": 40,
           "options": [
             "а)",
@@ -5253,16 +5209,14 @@
         {
           "id": 430,
           "type": "choice",
-          "x": 360,
-          "y": 964,
+          "x": 174, "y": 532,
           "width": 40,
           "options": [
             "а)",
             "б)",
             "в)"
           ],
-          "answer": "в)",
-          "direction": "horizontal"
+          "answer": "в)"
         }
       ]
     }
@@ -5270,3 +5224,4 @@
 
 ]
 }
+
