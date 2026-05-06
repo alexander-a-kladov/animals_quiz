@@ -1,9 +1,17 @@
 {
  "title": "Викторина о животных (тест)",
  "showAnswers": true,
- "startPage":92,
+ "startPage":0,
  "pages": [
-
+  {
+  	"image": "animals-1.jpg",
+  	"questions": []
+  },
+  {
+  	"image": "animals0.jpg",
+  	"questions": []
+  },
+ 	
   {
     "image": "animals1.jpg",
     "questions": [
