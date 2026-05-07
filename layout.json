@@ -2,7 +2,7 @@
  "title": "Викторина о животных (тест)",
  "showAnswers": true,
  "startPageQuiz":2,
- "randomCount":20,
+ "randomCount":10,
  "startPage":0,
  "pages": [
   {
