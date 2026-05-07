@@ -225,6 +225,71 @@ html, body { height: 100%; background: var(--dark); color: var(--text); font-fam
 
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-thumb { background: #ffffff20; border-radius: 3px; }
+/* ══ MENU ══ */
+#menu-screen {
+  display: none; position: fixed; inset: 0;
+  flex-direction: column; align-items: center; justify-content: center;
+  background: var(--dark); z-index: 900; gap: 28px; padding: 24px;
+}
+#menu-screen::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, #2a1a6e44, transparent),
+              radial-gradient(ellipse 60% 50% at 80% 100%, #6a1a4444, transparent);
+}
+.menu-logo {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(1.6rem, 5vw, 3rem); font-weight: 900; letter-spacing: -2px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--accent2) 60%, var(--accent) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; text-align: center; position: relative; z-index: 1;
+}
+.menu-subtitle {
+  font-family: 'Unbounded', sans-serif; font-size: clamp(0.7rem, 2vw, 0.9rem);
+  color: var(--text-muted); text-align: center; letter-spacing: 1px;
+  position: relative; z-index: 1; margin-top: -18px;
+}
+.menu-card {
+  background: var(--surface); border: 1px solid #ffffff12;
+  border-radius: 20px; padding: 32px 28px;
+  width: 100%; max-width: 420px;
+  display: flex; flex-direction: column; gap: 14px;
+  position: relative; z-index: 1;
+  box-shadow: 0 32px 64px #00000060;
+}
+.menu-mode-btn {
+  font-family: 'Unbounded', sans-serif; font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.5px; padding: 18px 20px; border: none; border-radius: 14px;
+  cursor: pointer; transition: all 0.22s; text-align: left;
+  display: flex; flex-direction: column; gap: 5px;
+}
+.menu-mode-btn .mb-title { font-size: 0.9rem; }
+.menu-mode-btn .mb-sub   { font-size: 0.72rem; font-weight: 400; opacity: 0.75; font-family: 'Nunito', sans-serif; }
+.menu-mode-full {
+  background: linear-gradient(135deg, var(--accent), #5a3fd4);
+  color: #fff; box-shadow: 0 6px 24px #7c5cfc44;
+}
+.menu-mode-full:hover  { transform: translateY(-2px); box-shadow: 0 12px 32px #7c5cfc66; }
+.menu-mode-rand {
+  background: linear-gradient(135deg, var(--accent2), #c0306a);
+  color: #fff; box-shadow: 0 6px 24px #fc5c9c44;
+}
+.menu-mode-rand:hover  { transform: translateY(-2px); box-shadow: 0 12px 32px #fc5c9c66; }
+
+/* timer paused indicator */
+.timer.paused { color: var(--text-muted); }
+
+/* share button */
+.btn-share {
+  font-family: 'Unbounded', sans-serif; font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 14px 32px; border: none; border-radius: 12px;
+  background: var(--surface2); border: 1px solid #ffffff18;
+  color: var(--text); cursor: pointer; transition: all 0.25s; width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.btn-share:hover { border-color: var(--accent); color: var(--accent); }
+.btn-share.copied { border-color: var(--correct); color: var(--correct); }
+
 
 
 /* ── static label overlays ── */
@@ -244,6 +309,23 @@ html, body { height: 100%; background: var(--dark); color: var(--text); font-fam
 </style>
 </head>
 <body>
+
+
+<!-- ══ MENU ══ -->
+<div id="menu-screen">
+  <div class="menu-logo" id="menu-logo">ВИКТОРИНА</div>
+  <div class="menu-subtitle" id="menu-subtitle"></div>
+  <div class="menu-card">
+    <button class="menu-mode-btn menu-mode-full" onclick="startMode('full')">
+      <span class="mb-title">📚 Полная игра</span>
+      <span class="mb-sub" id="mb-full-sub">Все карточки по порядку</span>
+    </button>
+    <button class="menu-mode-btn menu-mode-rand" onclick="startMode('random')">
+      <span class="mb-title">🎲 Случайный набор</span>
+      <span class="mb-sub" id="mb-rand-sub">20 случайных карточек</span>
+    </button>
+  </div>
+</div>
 
 <!-- ══ LOADING ══ -->
 <div id="loading-screen">
@@ -300,6 +382,7 @@ html, body { height: 100%; background: var(--dark); color: var(--text); font-fam
       <div class="acc-track"><div class="acc-fill" id="acc-fill" style="width:0%"></div></div>
       <div class="acc-row"><span id="acc-pct">0%</span><span id="acc-tot"></span></div>
     </div>
+    <button class="btn-share" id="btn-share" onclick="shareResult()">📤 Поделиться результатом</button>
     <button class="btn-restart" onclick="location.reload()">↺ Начать заново</button>
   </div>
 </div>
@@ -354,9 +437,13 @@ const LAYOUT_FILE = 'layout.json';
 
 const S = {
   title: 'ВИКТОРИНА',
-  showAnswers: true,   // show correct answer + comment on wrong
-  startPage: 0,        // 0-based index of first page (for debugging)
-  pages: [],
+  showAnswers: true,
+  startPage: 0,
+  randomCount: 20,     // cards in random mode
+  mode: 'full',        // 'full' | 'random'
+  allPages: [],        // all pages from layout (before mode selection)
+  pages: [],           // active pages for current game
+  timerPaused: false,
   cur: 0,
   score: 0,
   totalQ: 0,
@@ -398,37 +485,83 @@ async function boot() {
     }
     if (layout.showAnswers === false) S.showAnswers = false;
     if (typeof layout.startPage === 'number') S.startPage = layout.startPage;
+    if (typeof layout.randomCount === 'number') S.randomCount = layout.randomCount;
   } else {
     return showError(`<code>${LAYOUT_FILE}</code>: неверный формат.`);
   }
 
   if (!pages.length) return showError('Список страниц пуст.');
 
-  S.totalQ = pages.reduce((s,p) => s + (p.questions||[]).length, 0);
+  // Store all pages; resolve paths without loading anything yet
+  S.allPages = pages.map(p => ({ ...p, resolvedSrc: `images/${p.image}`, imgLoaded: false }));
 
-  // Resolve all page records immediately (just fill resolvedSrc, no network yet)
-  S.pages = pages.map(p => ({ ...p, resolvedSrc: `images/${p.image}`, imgLoaded: false }));
+  // Update menu UI
+  const rCount = Math.min(S.randomCount, S.allPages.length);
+  document.getElementById('menu-logo').textContent = S.title;
+  document.getElementById('menu-subtitle').textContent = S.title !== 'ВИКТОРИНА' ? '' : '';
+  document.getElementById('mb-full-sub').textContent =
+    `${S.allPages.length} карточек`;
+  document.getElementById('mb-rand-sub').textContent =
+    `${rCount} случайных карточек из ${S.allPages.length}`;
 
-  // Preload only the start page (and one ahead) before showing the quiz
-  S.cur = Math.max(0, Math.min(S.startPage, S.pages.length - 1));
-  setStatus(`Загрузка первой картинки…`, 10);
-
-  try {
-    await preloadImg(S.pages[S.cur].resolvedSrc);
-    S.pages[S.cur].imgLoaded = true;
-  } catch {
-    return showError(`Не удалось загрузить <code>${S.pages[S.cur].resolvedSrc}</code>.`);
+  // If only one possible mode (≤ randomCount pages), hide random button
+  if (S.allPages.length <= S.randomCount) {
+    document.querySelector('.menu-mode-rand').style.display = 'none';
   }
-  setStatus('Готово!', 100);
-  await sleep(200);
 
+  setStatus('Готово!', 100);
+  await sleep(150);
   document.getElementById('loading-screen').style.display = 'none';
-  document.getElementById('quiz-screen').style.display = 'flex';
-  document.getElementById('quiz-title').textContent = S.title;
-  startTimer();
-  renderPage();
-  // Kick off background preload of remaining images
-  bgPreload(S.cur + 1);
+  document.getElementById('menu-screen').style.display = 'flex';
+}
+
+// ─────────────────────────────────────────────
+//  MENU: start game in chosen mode
+// ─────────────────────────────────────────────
+function startMode(mode) {
+  S.mode = mode;
+  S.score = 0; S.timerSec = 0;
+
+  // Reset imgLoaded on all pages
+  S.allPages.forEach(p => { p.imgLoaded = false; });
+
+  if (mode === 'random') {
+    // Fisher-Yates shuffle, take first randomCount
+    const arr = [...S.allPages];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    S.pages = arr.slice(0, Math.min(S.randomCount, arr.length));
+  } else {
+    // Full game starting from startPage
+    S.pages = S.allPages.slice(S.startPage);
+  }
+
+  S.totalQ = S.pages.reduce((s,p) => s + (p.questions||[]).length, 0);
+  S.cur = 0;
+
+  document.getElementById('menu-screen').style.display = 'none';
+
+  // Show loading for first image
+  document.getElementById('loading-screen').style.display = 'flex';
+  setStatus('Загрузка первой картинки…', 50);
+
+  preloadImg(S.pages[0].resolvedSrc)
+    .then(() => {
+      S.pages[0].imgLoaded = true;
+      setStatus('Готово!', 100);
+      return sleep(150);
+    })
+    .then(() => {
+      document.getElementById('loading-screen').style.display = 'none';
+      document.getElementById('quiz-screen').style.display = 'flex';
+      document.getElementById('quiz-title').textContent = S.title;
+      startTimer();
+      renderPage();
+      bgPreload(1);
+    })
+    .catch(() => showError('Не удалось загрузить первую картинку.'));
 }
 
 function preloadImg(src) {
@@ -450,10 +583,22 @@ function showError(html) {
 // ─────────────────────────────────────────────
 function startTimer() {
   clearInterval(S.timerInt);
+  S.timerPaused = false;
+  document.getElementById('timer').classList.remove('paused');
   S.timerInt = setInterval(() => {
-    S.timerSec++;
-    document.getElementById('timer').textContent = fmt(S.timerSec);
+    if (!S.timerPaused) {
+      S.timerSec++;
+      document.getElementById('timer').textContent = fmt(S.timerSec);
+    }
   }, 1000);
+}
+function pauseTimer() {
+  S.timerPaused = true;
+  document.getElementById('timer').classList.add('paused');
+}
+function resumeTimer() {
+  S.timerPaused = false;
+  document.getElementById('timer').classList.remove('paused');
 }
 function fmt(s) {
   const h = Math.floor(s / 3600);
@@ -729,12 +874,15 @@ function onText(qi, inp, correctRaw, comment, iconSlot) {
 //  NAVIGATION
 // ─────────────────────────────────────────────
 function updateNav() {
-  const allDone = S.answered.every(v => v);
+  const noQuestions = S.answered.length === 0;
+  const allDone = noQuestions || S.answered.every(v => v);
   const btn = document.getElementById('btn-next');
   btn.disabled = !allDone;
   btn.innerHTML = (allDone && S.cur === S.pages.length - 1)
     ? 'Завершить викторину 🏁'
     : 'Следующая страница <span>→</span>';
+  // Pause timer on pages with no questions; resume when there are unanswered ones
+  if (noQuestions || allDone) pauseTimer(); else resumeTimer();
 }
 
 function updateScore() {
@@ -793,6 +941,58 @@ function endQuiz() {
 // ─────────────────────────────────────────────
 //  UTILS
 // ─────────────────────────────────────────────
+// ─────────────────────────────────────────────
+//  SHARE RESULT
+// ─────────────────────────────────────────────
+function shareResult() {
+  const total = S.totalQ, score = S.score;
+  const pct   = Math.round((score / total) * 100);
+  const time  = fmt(S.timerSec);
+  const mode  = S.mode === 'random' ? '🎲 Случайный набор' : '📚 Полная игра';
+  const stars = pct === 100 ? '🏆' : pct >= 80 ? '🥇' : pct >= 60 ? '🥈' : pct >= 40 ? '🥉' : '📚';
+  const bar   = '█'.repeat(Math.round(pct / 10)) + '░'.repeat(10 - Math.round(pct / 10));
+
+  const text =
+    `${stars} ${S.title}
+` +
+    `${mode}
+` +
+    `
+` +
+    `Результат: ${score}/${total} (${pct}%)
+` +
+    `${bar}
+` +
+    `Время: ${time}
+` +
+    `
+` +
+    `Попробуй сам! 👉 ${location.href}`;
+
+  const btn = document.getElementById('btn-share');
+
+  // Use Web Share API if available (mobile), fallback to clipboard
+  if (navigator.share) {
+    navigator.share({
+      title: S.title,
+      text: text,
+      url: location.href
+    }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Скопировано в буфер';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = '📤 Поделиться результатом';
+        btn.classList.remove('copied');
+      }, 2500);
+    }).catch(() => {
+      // Fallback: show text in prompt
+      prompt('Скопируйте результат:', text);
+    });
+  }
+}
+
 function confetti(n) {
   const cols = ['#f5c842','#7c5cfc','#fc5c9c','#43d483','#fc5c5c','#5cc8fc'];
   for (let i=0; i<n; i++) {
