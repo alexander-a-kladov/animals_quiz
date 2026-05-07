@@ -439,10 +439,12 @@ const S = {
   title: 'ВИКТОРИНА',
   showAnswers: true,
   startPage: 0,
-  randomCount: 20,     // cards in random mode
-  mode: 'full',        // 'full' | 'random'
-  allPages: [],        // all pages from layout (before mode selection)
-  pages: [],           // active pages for current game
+  startPageQuiz: 0,    // first page index that is part of the quiz (pages before are informational)
+  randomCount: 20,
+  mode: 'full',
+  allPages: [],
+  pages: [],
+  inIntro: false,      // true while showing intro pages before menu
   timerPaused: false,
   cur: 0,
   score: 0,
@@ -486,6 +488,7 @@ async function boot() {
     if (layout.showAnswers === false) S.showAnswers = false;
     if (typeof layout.startPage === 'number') S.startPage = layout.startPage;
     if (typeof layout.randomCount === 'number') S.randomCount = layout.randomCount;
+    if (typeof layout.startPageQuiz === 'number') S.startPageQuiz = layout.startPageQuiz;
   } else {
     return showError(`<code>${LAYOUT_FILE}</code>: неверный формат.`);
   }
@@ -495,24 +498,44 @@ async function boot() {
   // Store all pages; resolve paths without loading anything yet
   S.allPages = pages.map(p => ({ ...p, resolvedSrc: `images/${p.image}`, imgLoaded: false }));
 
-  // Update menu UI
-  const rCount = Math.min(S.randomCount, S.allPages.length);
+  // Quiz pages = everything from startPageQuiz onward
+  const quizPages = S.allPages.slice(S.startPageQuiz);
+  const rCount = Math.min(S.randomCount, quizPages.length);
   document.getElementById('menu-logo').textContent = S.title;
-  document.getElementById('menu-subtitle').textContent = S.title !== 'ВИКТОРИНА' ? '' : '';
   document.getElementById('mb-full-sub').textContent =
-    `${S.allPages.length} карточек`;
+    `${quizPages.length} карточек`;
   document.getElementById('mb-rand-sub').textContent =
-    `${rCount} случайных карточек из ${S.allPages.length}`;
-
-  // If only one possible mode (≤ randomCount pages), hide random button
-  if (S.allPages.length <= S.randomCount) {
+    `${rCount} случайных карточек из ${quizPages.length}`;
+  if (quizPages.length <= S.randomCount)
     document.querySelector('.menu-mode-rand').style.display = 'none';
-  }
 
   setStatus('Готово!', 100);
   await sleep(150);
   document.getElementById('loading-screen').style.display = 'none';
-  document.getElementById('menu-screen').style.display = 'flex';
+
+  if (S.startPageQuiz > 0) {
+    // Show intro pages first, then menu after last intro page
+    S.inIntro = true;
+    S.pages = S.allPages.slice(0, S.startPageQuiz); // intro pages only
+    S.totalQ = 0; // no scoring during intro
+    S.cur = 0;
+    // Preload first intro image
+    document.getElementById('loading-screen').style.display = 'flex';
+    setStatus('Загрузка…', 50);
+    try {
+      await preloadImg(S.pages[0].resolvedSrc);
+      S.pages[0].imgLoaded = true;
+    } catch { /* non-fatal */ }
+    setStatus('Готово!', 100);
+    await sleep(150);
+    document.getElementById('loading-screen').style.display = 'none';
+    document.getElementById('quiz-screen').style.display = 'flex';
+    document.getElementById('quiz-title').textContent = S.title;
+    renderPage();
+    bgPreload(1);
+  } else {
+    document.getElementById('menu-screen').style.display = 'flex';
+  }
 }
 
 // ─────────────────────────────────────────────
@@ -525,17 +548,20 @@ function startMode(mode) {
   // Reset imgLoaded on all pages
   S.allPages.forEach(p => { p.imgLoaded = false; });
 
+  // Only quiz pages participate in both modes (intro pages excluded)
+  const quizPool = S.allPages.slice(S.startPageQuiz);
+
   if (mode === 'random') {
     // Fisher-Yates shuffle, take first randomCount
-    const arr = [...S.allPages];
+    const arr = [...quizPool];
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     S.pages = arr.slice(0, Math.min(S.randomCount, arr.length));
   } else {
-    // Full game starting from startPage
-    S.pages = S.allPages.slice(S.startPage);
+    // Full game: all quiz pages
+    S.pages = quizPool.slice();
   }
 
   S.totalQ = S.pages.reduce((s,p) => s + (p.questions||[]).length, 0);
@@ -618,8 +644,17 @@ function renderPage() {
   const page  = S.pages[S.cur];
   const total = S.pages.length;
 
-  document.getElementById('prog-fill').style.width = `${(S.cur/total)*100}%`;
-  document.getElementById('page-counter').textContent = `${S.cur+1} / ${total}`;
+  if (S.inIntro) {
+    document.getElementById('prog-fill').style.width = '0%';
+    document.getElementById('page-counter').textContent = '';
+    document.getElementById('score-live').style.visibility = 'hidden';
+    document.getElementById('timer').style.visibility = 'hidden';
+  } else {
+    document.getElementById('prog-fill').style.width = `${(S.cur/total)*100}%`;
+    document.getElementById('page-counter').textContent = `${S.cur+1} / ${total}`;
+    document.getElementById('score-live').style.visibility = 'visible';
+    document.getElementById('timer').style.visibility = 'visible';
+  }
 
   const stage = document.getElementById('image-stage');
   const imgEl = document.getElementById('quiz-img');
@@ -878,11 +913,18 @@ function updateNav() {
   const allDone = noQuestions || S.answered.every(v => v);
   const btn = document.getElementById('btn-next');
   btn.disabled = !allDone;
-  btn.innerHTML = (allDone && S.cur === S.pages.length - 1)
-    ? 'Завершить викторину 🏁'
-    : 'Следующая страница <span>→</span>';
-  // Pause timer on pages with no questions; resume when there are unanswered ones
-  if (noQuestions || allDone) pauseTimer(); else resumeTimer();
+  if (S.inIntro) {
+    btn.innerHTML = S.cur === S.pages.length - 1
+      ? 'Начать викторину ▶'
+      : 'Далее <span>→</span>';
+    btn.disabled = false; // intro pages are always passable
+  } else {
+    btn.innerHTML = (allDone && S.cur === S.pages.length - 1)
+      ? 'Завершить викторину 🏁'
+      : 'Следующая страница <span>→</span>';
+  }
+  // Pause timer on pages with no questions or during intro
+  if (S.inIntro || noQuestions || allDone) pauseTimer(); else resumeTimer();
 }
 
 function updateScore() {
@@ -890,11 +932,29 @@ function updateScore() {
 }
 
 function nextPage() {
+  if (S.inIntro) {
+    if (S.cur < S.pages.length - 1) {
+      // More intro pages to show
+      S.cur++;
+      renderPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const ahead = S.cur + 1;
+      if (ahead < S.pages.length && !S.pages[ahead].imgLoaded) {
+        preloadImg(S.pages[ahead].resolvedSrc)
+          .then(() => { S.pages[ahead].imgLoaded = true; }).catch(() => {});
+      }
+    } else {
+      // Last intro page done → show mode menu
+      S.inIntro = false;
+      document.getElementById('quiz-screen').style.display = 'none';
+      document.getElementById('menu-screen').style.display = 'flex';
+    }
+    return;
+  }
   if (S.cur < S.pages.length - 1) {
     S.cur++;
     renderPage();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    // Preload the page after next if not already loaded
     const ahead = S.cur + 1;
     if (ahead < S.pages.length && !S.pages[ahead].imgLoaded) {
       preloadImg(S.pages[ahead].resolvedSrc)

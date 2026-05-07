@@ -1,6 +1,8 @@
 {
  "title": "Викторина о животных (тест)",
  "showAnswers": true,
+ "startPageQuiz":2,
+ "randomCount":20,
  "startPage":0,
  "pages": [
   {
@@ -934,7 +936,7 @@
         "type": "choice",
         "options": ["да", "нет"],
         "answer": "нет",
-        "comment": "хотя бывает, они туда падают",
+        "comment": "хотя, бывает, они туда падают",
         "x": 245, "y": 355,
         "width": 40,
         "direction": "horizontal"
